@@ -38,7 +38,7 @@ const CreateTeamPage = () => {
 			</div>
 			<div className="flex flex-col gap-4 p-2 xl:basis-2/5 xl:p-8">
 				<Card>
-					<h1 className="text-2xl font-semibold text-emerald-50">
+					<h1 className="text-2xl font-semibold text-emerald-900">
 						Stats analysis
 					</h1>
 				</Card>

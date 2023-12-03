@@ -1,6 +1,7 @@
 import { PokemonClient } from 'pokenode-ts';
 import { PokemonApi } from '@/pokemon/pokeapi';
 import PokemonTypeBadge from '@/components/PokemonTypeBadge';
+import { Card } from '@/components/Card';
 
 type PokemonCardProps = {
 	pokemonName?: string;
@@ -27,7 +28,7 @@ export const PokemonCard = async ({
 		pokemon.species.name
 	);
 	return (
-		<div className="rounded-2xl bg-gradient-to-r from-sky-200/30 to-teal-300/30 px-2 py-2 shadow-xl backdrop-blur transition-all duration-500 hover:translate-y-0.5 hover:bg-white/30 xl:py-4 2xl:px-8">
+		<Card hoverable={true}>
 			<div className="flex flex-col gap-4">
 				<div className="flex w-full gap-4">
 					<img
@@ -36,7 +37,7 @@ export const PokemonCard = async ({
 						className="w-1/7 flex-none"
 					/>
 					<div className="flex w-full flex-col gap-2">
-						<span className="text-2xl font-bold uppercase text-emerald-50 xl:text-3xl">
+						<span className="text-2xl font-bold uppercase text-emerald-800 xl:text-3xl">
 							{specie.names.find(name => name.language.name === 'en')?.name ??
 								pokemon.name}
 						</span>
@@ -118,6 +119,6 @@ export const PokemonCard = async ({
 					</select>
 				</div>
 			</div>
-		</div>
+		</Card>
 	);
 };

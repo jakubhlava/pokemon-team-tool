@@ -15,15 +15,12 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="en" data-theme="cupcake">
-			<body
-				className={
-					inter.className +
-					' min-h-screen bg-gradient-to-b from-emerald-600 to-green-300'
-				}
-			>
-				{children}
-			</body>
+		<html
+			lang="en"
+			data-theme="cupcake"
+			className="m-0 h-screen w-screen bg-gradient-to-b from-emerald-600 to-green-300"
+		>
+			<body className={inter.className}>{children}</body>
 		</html>
 	);
 }
