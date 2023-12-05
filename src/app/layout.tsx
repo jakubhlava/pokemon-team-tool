@@ -16,7 +16,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="en" data-theme="cupcake">
+		<html lang="en" data-theme="cupcake" className="m-0 h-screen w-screen bg-gradient-to-b from-emerald-600 to-green-300">
 			<body className={inter.className}>
 				<Providers>{children}</Providers>
 			</body>
