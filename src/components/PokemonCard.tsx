@@ -2,6 +2,7 @@ import { PokemonClient } from 'pokenode-ts';
 import { PokemonApi } from '@/pokemon/pokeapi';
 import PokemonTypeBadge from '@/components/PokemonTypeBadge';
 import { Card } from '@/components/Card';
+import { AttackSelect } from '@/components/AttackSelect';
 
 type PokemonCardProps = {
 	pokemonName?: string;
@@ -48,75 +49,19 @@ export const PokemonCard = async ({
 						</div>
 					</div>
 				</div>
-				<div className="grid grid-cols-2 gap-4">
-					<select
-						className="select select-sm border-emerald-900 bg-emerald-700/40 text-white"
-						defaultValue="empty"
-						onChange={() => {}}
-					>
-						<option value="empty" disabled>
-							Attack 1
-						</option>
-						{moves.map(async move => {
-							return (
-								<option key={move.name} value={move.name}>
-									{move.names.find(name => name.language.name === 'en')?.name ??
-										move.name}
-								</option>
-							);
-						})}
-					</select>
-					<select
-						className="select select-sm border-emerald-900 bg-emerald-700/40 text-white"
-						defaultValue="empty"
-						onChange={() => {}}
-					>
-						<option value="empty" disabled>
-							Attack 2
-						</option>
-						{moves.map(async move => {
-							return (
-								<option key={move.name} value={move.name}>
-									{move.names.find(name => name.language.name === 'en')?.name ??
-										move.name}
-								</option>
-							);
-						})}
-					</select>
-					<select
-						className="select select-sm border-emerald-900 bg-emerald-700/40 text-white"
-						defaultValue="empty"
-						onChange={() => {}}
-					>
-						<option value="empty" disabled>
-							Attack 3
-						</option>
-						{moves.map(async move => {
-							return (
-								<option key={move.name} value={move.name}>
-									{move.names.find(name => name.language.name === 'en')?.name ??
-										move.name}
-								</option>
-							);
-						})}
-					</select>
-					<select
-						className="select select-sm border-emerald-900 bg-emerald-700/40 text-white"
-						defaultValue="empty"
-						onChange={() => {}}
-					>
-						<option value="empty" disabled>
-							Attack 4
-						</option>
-						{moves.map(async move => {
-							return (
-								<option key={move.name} value={move.name}>
-									{move.names.find(name => name.language.name === 'en')?.name ??
-										move.name}
-								</option>
-							);
-						})}
-					</select>
+				<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+					<AttackSelect onChange={() => {}} attacks={moves}>
+						Select attack 1
+					</AttackSelect>
+					<AttackSelect onChange={() => {}} attacks={moves}>
+						Select attack 2
+					</AttackSelect>
+					<AttackSelect onChange={() => {}} attacks={moves}>
+						Select attack 3
+					</AttackSelect>
+					<AttackSelect onChange={() => {}} attacks={moves}>
+						Select attack 4
+					</AttackSelect>
 				</div>
 			</div>
 		</Card>

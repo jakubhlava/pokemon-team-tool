@@ -10,20 +10,19 @@ export const LoginStatus = () => {
 			<div>
 				<button
 					onClick={() => signIn('discord')}
-					className="border-white rounded border p-3"
+					className="btn btn-ghost btn-sm"
 				>
-					Sign in with Discord
+					Sign in with <i className="bi bi-discord text-[#7289da]"></i>
 				</button>
 			</div>
 		);
 	}
 	return (
 		<div className="flex items-center gap-3">
-			Hi, {data?.user.name}
-			<button
-				onClick={() => signOut()}
-				className="border-white rounded border p-3"
-			>
+			<span className="text-sm font-semibold">
+				Logged in as {data?.user.name}
+			</span>
+			<button onClick={() => signOut()} className="btn btn-ghost btn-sm">
 				Sign out
 			</button>
 		</div>

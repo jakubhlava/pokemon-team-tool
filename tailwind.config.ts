@@ -99,11 +99,22 @@ const config: Config = {
 		...pokeTypes.map(type => `border-${type}-accent`),
 		...pokeTypes.map(type => `hover:bg-${type}`),
 		...pokeTypes.map(type => `hover:bg-${type}-dark`),
-		...pokeTypes.map(type => `hover:bg-${type}-accent`)
+		...pokeTypes.map(type => `hover:bg-${type}-accent`),
+		'text-sm',
+		'text-lg',
+		'text-xl',
+		'text-2xl',
+		'text-3xl',
+		'text-4xl',
+		'text-5xl',
+		'text-6xl',
+		'text-7xl',
+		'text-8xl',
+		'text-9xl'
 	],
 	plugins: [require('daisyui')],
 	daisyui: {
-		themes: ['cupcake']
+		themes: ['emerald']
 	}
 };
 export default config;

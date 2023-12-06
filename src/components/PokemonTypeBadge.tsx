@@ -1,13 +1,14 @@
 type PokemonTypeBadgeProps = {
 	type: string;
+	cut?: boolean;
 };
 
-const PokemonTypeBadge = ({ type }: PokemonTypeBadgeProps) => {
+const PokemonTypeBadge = ({ type, cut }: PokemonTypeBadgeProps) => {
 	return (
 		<span
-			className={`inline-block rounded-full px-2 py-1 text-xs font-bold text-white bg-${type} border-${type}-dark border uppercase shadow`}
+			className={`my-auto flex items-center justify-center rounded-full px-2 py-1 font-bold text-white bg-${type} border-${type}-dark border text-xs uppercase shadow`}
 		>
-			{type}
+			{cut ? type.substring(0, 3) : type}
 		</span>
 	);
 };

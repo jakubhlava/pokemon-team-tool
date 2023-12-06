@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Providers } from './Providers';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -16,7 +17,11 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="en" data-theme="cupcake" className="m-0 h-screen w-screen bg-gradient-to-b from-emerald-600 to-green-300">
+		<html
+			lang="en"
+			data-theme="emerald"
+			className="m-0 h-screen w-screen bg-gradient-to-b from-emerald-600 to-green-300"
+		>
 			<body className={inter.className}>
 				<Providers>{children}</Providers>
 			</body>
