@@ -3,6 +3,8 @@ import { PokemonApi } from '@/pokemon/pokeapi';
 import PokemonTypeBadge from '@/components/PokemonTypeBadge';
 import { Card } from '@/components/Card';
 import { AttackSelect } from '@/components/AttackSelect';
+import { PokemonAttackSelection } from '@/components/PokemonAttackSelection';
+import { Suspense } from 'react';
 
 type PokemonCardProps = {
 	pokemonName?: string;
@@ -19,11 +21,6 @@ export const PokemonCard = async ({
 			: await PokemonApi.pokemon.getPokemonById(pokemonId ?? 0);
 
 	// TODO: Rozdělit do víc komponent, aby se loadovaly attacky zvlášť a pokemon už byl na screenu
-	const moves = await Promise.all(
-		pokemon.moves.map(async move => {
-			return await PokemonApi.move.getMoveByName(move.move.name);
-		})
-	);
 
 	const specie = await PokemonApi.pokemon.getPokemonSpeciesByName(
 		pokemon.species.name
@@ -48,21 +45,19 @@ export const PokemonCard = async ({
 							))}
 						</div>
 					</div>
+					<button className="btn btn-circle btn-error btn-sm text-white">
+						<i className="bi bi-trash"></i>
+					</button>
 				</div>
-				<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-					<AttackSelect onChange={() => {}} attacks={moves}>
-						Select attack 1
-					</AttackSelect>
-					<AttackSelect onChange={() => {}} attacks={moves}>
-						Select attack 2
-					</AttackSelect>
-					<AttackSelect onChange={() => {}} attacks={moves}>
-						Select attack 3
-					</AttackSelect>
-					<AttackSelect onChange={() => {}} attacks={moves}>
-						Select attack 4
-					</AttackSelect>
-				</div>
+				<Suspense
+					fallback={
+						<div className="flex h-full w-full items-center justify-center">
+							<span className="loading loading-dots loading-md"></span>
+						</div>
+					}
+				>
+					<PokemonAttackSelection pokemon={pokemon} />
+				</Suspense>
 			</div>
 		</Card>
 	);

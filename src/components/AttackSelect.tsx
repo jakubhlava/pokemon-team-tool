@@ -70,55 +70,5 @@ export const AttackSelect = ({
 					))}
 			</ul>
 		</div>
-		// <details className="relative cursor-pointer rounded-lg border border-emerald-900 bg-emerald-700 px-4 py-1 text-white transition-all duration-150 hover:bg-emerald-800">
-		// 	<summary className="flex w-full justify-between">
-		// 		<div className="flex w-full justify-between">
-		// 			{selectedMove !== null ? (
-		// 				<div className="flex w-full justify-between pe-2">
-		// 					{selectedMove.names.find(name => name.language.name === 'en')
-		// 						?.name ?? selectedMove.name}{' '}
-		// 					<PokemonTypeBadge
-		// 						cut
-		// 						type={selectedMove.type.name}
-		// 					></PokemonTypeBadge>
-		// 				</div>
-		// 			) : (
-		// 				children
-		// 			)}
-		// 		</div>
-		// 		<div className="flex items-center justify-center">
-		// 			<i className="bi bi-chevron-down"></i>
-		// 		</div>
-		// 	</summary>
-		// 	<div className="absolute top-10 h-72 w-72 overflow-y-auto rounded-lg bg-white p-2 text-emerald-900 shadow-lg transition-all duration-300">
-		// 		<ul>
-		// 			{attacks
-		// 				.toSorted((a, b) => {
-		// 					const nameA = a.name.toUpperCase(); // ignore upper and lowercase
-		// 					const nameB = b.name.toUpperCase(); // ignore upper and lowercase
-		// 					if (nameA < nameB) {
-		// 						return -1;
-		// 					}
-		// 					if (nameA > nameB) {
-		// 						return 1;
-		// 					}
-		//
-		// 					// names must be equal
-		// 					return 0;
-		// 				})
-		// 				.map(attack => (
-		// 					<li
-		// 						key={attack.id}
-		// 						onClick={() => setMove(attack)}
-		// 						className="flex cursor-pointer justify-between px-2 py-1 transition-all duration-150 hover:bg-emerald-100"
-		// 					>
-		// 						{attack.names.find(name => name.language.name === 'en')?.name ??
-		// 							attack.name}
-		// 						<PokemonTypeBadge type={attack.type.name}></PokemonTypeBadge>
-		// 					</li>
-		// 				))}
-		// 		</ul>
-		// 	</div>
-		// </details>
 	);
 };

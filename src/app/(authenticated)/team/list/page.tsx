@@ -60,7 +60,7 @@ const ListTeamsPage = () => {
 								className="input input-bordered w-full"
 							/>
 						</div>
-						<button className="btn btn-primary">
+						<button className="btn btn-primary rounded-2xl">
 							<i className="bi bi-plus"></i> Create team
 						</button>
 					</form>

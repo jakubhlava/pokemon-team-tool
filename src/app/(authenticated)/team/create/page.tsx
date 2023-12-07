@@ -13,10 +13,10 @@ const CreateTeamPage = () => {
 	};
 
 	return (
-		<div className="flex flex-col xl:flex-row 2xl:gap-4 ">
+		<div className="flex flex-col p-4 xl:flex-row 2xl:gap-8">
 			<div className="flex flex-col gap-4 xl:basis-3/5">
 				<PokemonSearch />
-				<div className="grid grid-cols-1 gap-4 p-4 2xl:grid-cols-2">
+				<div className="grid grid-cols-1 gap-4 2xl:grid-cols-2">
 					{pokemons.map(pokemonId => (
 						<Suspense
 							key={pokemonId}
@@ -38,7 +38,7 @@ const CreateTeamPage = () => {
 					)}
 				</div>
 			</div>
-			<div className="flex flex-col gap-4 p-2 xl:basis-2/5 xl:p-8">
+			<div className="flex flex-col gap-4 xl:basis-2/5">
 				<Card>
 					<h1 className="text-2xl font-semibold text-emerald-900">
 						Stats analysis

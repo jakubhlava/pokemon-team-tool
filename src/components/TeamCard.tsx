@@ -18,7 +18,13 @@ export const TeamCard = async ({ team }: TeamCardProps) => {
 	return (
 		<Card hoverable={true} clickable={true}>
 			<div className="flex flex-col gap-4">
-				<h2 className="text-lg font-bold text-emerald-900">{team.name}</h2>
+				<div className="flex flex-row items-center justify-between">
+					<h2 className="text-lg font-bold text-emerald-900">{team.name}</h2>
+					<button className="btn btn-circle btn-error btn-sm text-white">
+						<i className="bi bi-trash"></i>
+					</button>
+				</div>
+
 				<div className="flex">
 					{pokemons.map((pokemon, index) => (
 						<div className="group relative hover:z-50" key={pokemon.pokemon.id}>
