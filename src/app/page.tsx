@@ -12,7 +12,7 @@ export default function Home() {
 						alt="Pikachu"
 						width={384}
 						height={384}
-						className="absolute -bottom-10 left-0"
+						className="absolute bottom-16 left-0"
 						priority
 					></Image>
 					<span className="text-4xl font-extrabold">Pokémon Team Tool</span>

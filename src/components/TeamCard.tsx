@@ -24,7 +24,7 @@ export const TeamCard = async ({ team }: TeamCardProps) => {
 						<i className="bi bi-trash"></i>
 					</button>
 				</div>
-
+				{team.description !== null && <p>{team.description}</p>}
 				<div className="flex">
 					{pokemons.map((pokemon, index) => (
 						<div className="group relative hover:z-50" key={pokemon.pokemon.id}>

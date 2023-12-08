@@ -1,7 +1,11 @@
-'use client';
-
 import { Card } from '@/components/Card';
 import { TeamCard } from '@/components/TeamCard';
+import TeamFormModal from "@/components/TeamFormModal";
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+	title: 'Team list'
+};
 
 const ListTeamsPage = () => {
 	const teams: MockTeam[] = [
@@ -16,13 +20,6 @@ const ListTeamsPage = () => {
 		}
 	];
 
-	const openCreateModal = () => {
-		const modal = document.getElementById('createModal');
-		if (modal !== null) {
-			(modal as HTMLDialogElement).showModal();
-		}
-	};
-
 	return (
 		<>
 			<div className="m-2 flex flex-col gap-8 lg:m-8 lg:flex-row">
@@ -35,37 +32,14 @@ const ListTeamsPage = () => {
 					</Card>
 				</div>
 				<div className="flex flex-col gap-4 lg:basis-3/5">
-					<button className="btn btn-secondary" onClick={openCreateModal}>
-						<i className="bi bi-plus"></i> Create team
-					</button>
+					<TeamFormModal />
 
 					{teams.map(team => (
 						<TeamCard team={team} key={team.name}></TeamCard>
 					))}
 				</div>
 			</div>
-			<dialog id="createModal" className="modal">
-				<div className="modal-box">
-					{
-						// TODO doplnit Form Handling & validation
-					}
-					<form action="" className=" flex flex-col gap-4">
-						<div className="form-control">
-							<label htmlFor="teamName" className="label">
-								Enter name of new team
-							</label>
-							<input
-								type="text"
-								id="teamName"
-								className="input input-bordered w-full"
-							/>
-						</div>
-						<button className="btn btn-primary rounded-2xl">
-							<i className="bi bi-plus"></i> Create team
-						</button>
-					</form>
-				</div>
-			</dialog>
+
 		</>
 	);
 };
