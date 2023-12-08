@@ -13,7 +13,6 @@ export const POST = async (req: Request) => {
 
 	try {
 		const user = session.user;
-
 		const data = await teamCreateSchema.parseAsync(await req.json());
 
 		const newTeam = await db.team.create({
@@ -80,3 +79,4 @@ export const PUT = async (req: Request) => {
 		});
 	}
 };
+
