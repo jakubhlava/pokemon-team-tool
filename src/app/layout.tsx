@@ -8,7 +8,8 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
 	title: { template: '%s | Pokémon Team Tool', default: 'Pokémon Team Tool' },
-	description: 'Tool for creating and managing Pokémon teams'
+	description: 'Tool for creating and managing Pokémon teams',
+	metadataBase: new URL(process.env.DEPLOY_URL ?? 'http://localhost:3000/')
 };
 
 export default function RootLayout({
