@@ -14,6 +14,15 @@ pnpm dev
 bun dev
 ```
 
+## Environment variables
+
+- `NEXTAUTH_SECRET` - Next Auth secret
+- `NEXTAUTH_URL` - Base URL for next auth
+- `DISCORD_CLIENT_ID` - Client ID of Discord OAuth application
+- `DISCORD_CLIENT_SECRET` - Client secret of Discord OAuth application
+- `DEPLOY_URL` - URL of deployed application (e.g. for opengraph)
+- `DATABASE_URL` - URI of database
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 Pikachu head SVG from https://www.svgart.org/pikachu-head-svg/
