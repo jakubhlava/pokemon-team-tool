@@ -1,13 +1,12 @@
-'use client'
+'use client';
 
-import React, {useRef} from 'react';
+import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import { TeamFormValues } from "@/types/team";
+import { TeamFormValues } from '@/types/team';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {teamForm} from "@/validators/team";
-import {Error} from "@/components/Error";
-import {useMutation} from "@tanstack/react-query";
-
+import { teamForm } from '@/validators/team';
+import { Error } from '@/components/Error';
+import { useMutation } from '@tanstack/react-query';
 
 const TeamFormModal = () => {
 	const modalRef = useRef<HTMLDialogElement>(null);
@@ -18,7 +17,7 @@ const TeamFormModal = () => {
 		formState: { errors },
 		reset
 	} = useForm<TeamFormValues>({
-		resolver: zodResolver(teamForm),
+		resolver: zodResolver(teamForm)
 	});
 
 	const mutation = useMutation({
@@ -45,7 +44,9 @@ const TeamFormModal = () => {
 		}
 	};
 
-	const closeCreateModalEvent = (event: React.MouseEvent<HTMLButtonElement>) => {
+	const closeCreateModalEvent = (
+		event: React.MouseEvent<HTMLButtonElement>
+	) => {
 		event.preventDefault();
 
 		closeCreateModal();
@@ -57,7 +58,7 @@ const TeamFormModal = () => {
 		}
 
 		reset();
-	}
+	};
 
 	return (
 		<>
@@ -67,7 +68,11 @@ const TeamFormModal = () => {
 
 			<dialog ref={modalRef} id="createModal" className="modal">
 				<div className="modal-box">
-					<form action="" className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+					<form
+						action=""
+						className="flex flex-col gap-4"
+						onSubmit={handleSubmit(onSubmit)}
+					>
 						<div className="form-control">
 							<label htmlFor="teamName" className="label">
 								Enter name of new team*
@@ -84,21 +89,30 @@ const TeamFormModal = () => {
 							</label>
 							<textarea
 								id="teamDescritpion"
-								className="input input-bordered w-full h-16"
+								className="input input-bordered h-16 w-full"
 								{...register('description')}
-							>
-							</textarea>
-							{errors.description && <Error>{errors.description?.message}</Error>}
+							></textarea>
+							{errors.description && (
+								<Error>{errors.description?.message}</Error>
+							)}
 						</div>
 						<button className="btn btn-primary rounded-2xl">
 							<i className="bi bi-plus"></i> Create team
 						</button>
-						<button className="absolute top-0 right-2 m-2 text-2xl" onClick={closeCreateModalEvent}>&times;</button>
+						<button
+							className="absolute right-2 top-0 m-2 text-2xl"
+							onClick={closeCreateModalEvent}
+						>
+							&times;
+						</button>
 					</form>
 				</div>
+				<form method="dialog" className="modal-backdrop">
+					<button>close</button>
+				</form>
 			</dialog>
 		</>
-	)
-}
+	);
+};
 
-export default TeamFormModal
+export default TeamFormModal;
