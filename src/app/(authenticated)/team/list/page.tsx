@@ -1,6 +1,11 @@
 import { Card } from '@/components/Card';
 import { TeamCard } from '@/components/TeamCard';
 import TeamFormModal from "@/components/TeamFormModal";
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+	title: 'Team list'
+};
 
 const ListTeamsPage = () => {
 	const teams: MockTeam[] = [
