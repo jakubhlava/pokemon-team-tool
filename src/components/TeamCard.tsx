@@ -4,6 +4,7 @@ import { PokemonApi } from '@/pokemon/pokeapi';
 import PokemonTypeBadge from '@/components/PokemonTypeBadge';
 import { type TeamWithPokemons } from '@/types/team';
 import { StaticCard } from '@/components/StaticCard';
+import {TeamDeleteButton} from "@/components/TeamDeleteButton";
 
 type TeamCardProps = {
 	team: TeamWithPokemons;
@@ -26,9 +27,7 @@ export const TeamCard = async ({ team }: TeamCardProps) => {
 				<div className="flex flex-col gap-4">
 					<div className="flex flex-row items-center justify-between">
 						<h2 className="text-lg font-bold text-emerald-900">{team.name}</h2>
-						<button className="btn btn-circle btn-error btn-sm text-white">
-							<i className="bi bi-trash" />
-						</button>
+						<TeamDeleteButton teamId={team.id} />
 					</div>
 					{team.description !== null && <p>{team.description}</p>}
 					<div className="flex">
