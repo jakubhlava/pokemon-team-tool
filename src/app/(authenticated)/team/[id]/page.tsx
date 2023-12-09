@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 	title: 'Create team'
 };
 
-const CreateTeamPage = () => {
+const CreateTeamPage = ({ params }: { params: { id: string } }) => {
 	return (
 		<div className="min-w-80 flex flex-col p-4 xl:flex-row xl:gap-8">
 			<div className="flex flex-col gap-4 xl:basis-3/5">
