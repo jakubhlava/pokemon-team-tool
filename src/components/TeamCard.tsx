@@ -10,11 +10,11 @@ type TeamCardProps = {
 export const TeamCard = async ({ team }: TeamCardProps) => {
 	const pokemons = await Promise.all(
 		team.TeamPokemon.map(async teamPokemon => ({
-			pokemon: await PokemonApi.pokemon.getPokemonById(
-				teamPokemon.pokemon.api_id
+			pokemon: await PokemonApi.pokemon.getPokemonByName(
+				teamPokemon.pokemon.nameId
 			),
-			specie: await PokemonApi.pokemon.getPokemonSpeciesById(
-				teamPokemon.pokemon.api_id
+			specie: await PokemonApi.pokemon.getPokemonSpeciesByName(
+				teamPokemon.pokemon.nameId
 			)
 		}))
 	);
