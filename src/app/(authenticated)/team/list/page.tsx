@@ -3,8 +3,8 @@ import { Suspense } from 'react';
 
 import TeamFormModal from '@/components/TeamFormModal';
 import { TeamList } from '@/components/TeamList';
-import React, { StaticCard } from '@/components/StaticCard';
-import {Spinner} from "@/components/spinner";
+import { StaticCard } from '@/components/StaticCard';
+import { Spinner } from '@/components/spinner';
 
 export const metadata: Metadata = {
 	title: 'Team list'
