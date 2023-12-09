@@ -11,7 +11,7 @@ export const CreateTeamButton = () => {
 	return (
 		<>
 			<button className="btn btn-secondary" onClick={openCreateModal}>
-				<i className="bi bi-plus"></i> Create team
+				<i className="bi bi-plus" /> Create team
 			</button>
 			<dialog id="createModal" className="modal">
 				<div className="modal-box">
@@ -35,7 +35,7 @@ export const CreateTeamButton = () => {
 							/>
 						</div>
 						<button className="btn btn-primary rounded-2xl">
-							<i className="bi bi-plus"></i> Create team
+							<i className="bi bi-plus" /> Create team
 						</button>
 					</form>
 				</div>

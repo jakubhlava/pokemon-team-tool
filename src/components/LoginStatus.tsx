@@ -12,7 +12,7 @@ export const LoginStatus = () => {
 					onClick={() => signIn('discord')}
 					className="btn btn-ghost btn-sm"
 				>
-					Sign in with <i className="bi bi-discord text-[#7289da]"></i>
+					Sign in with <i className="bi bi-discord text-[#7289da]" />
 				</button>
 			</div>
 		);

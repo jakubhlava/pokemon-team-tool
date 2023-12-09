@@ -10,8 +10,8 @@ export const size = {
 export const contentType = 'image/png';
 
 // Image generation
-export default async function GetImage() {
-	return new ImageResponse(
+const GetImage = async () =>
+	new ImageResponse(
 		(
 			<div
 				style={{
@@ -55,4 +55,5 @@ export default async function GetImage() {
 			...size
 		}
 	);
-}
+
+export default GetImage;
