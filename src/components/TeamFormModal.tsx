@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, {useRef} from 'react';
 import { useForm } from 'react-hook-form';
 import {Team, TeamFormValues} from '@/types/team';
 import { zodResolver } from '@hookform/resolvers/zod';
