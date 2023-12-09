@@ -3,6 +3,7 @@ import PokemonTypeBadge from '@/components/PokemonTypeBadge';
 import { type TeamWithPokemons } from '@/types/team';
 import { StaticCard } from '@/components/StaticCard';
 import { TeamDeleteButton } from '@/components/TeamDeleteButton';
+import Link from "next/link";
 
 type TeamCardProps = {
 	team: TeamWithPokemons;
@@ -59,6 +60,9 @@ export const TeamCard = async ({ team }: TeamCardProps) => {
 					))}
 				</div>
 			</div>
+			<Link href={`/team/${team.id}`}>
+				<button className="btn btn-primary">Detail</button>
+			</Link>
 		</StaticCard>
 	);
 };
