@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import TeamFormModal from '@/components/TeamFormModal';
 import { TeamList } from '@/components/TeamList';
 import { StaticCard } from '@/components/StaticCard';
+import { Spinner } from '@/components/spinner';
 
 export const metadata: Metadata = {
 	title: 'Team list'
@@ -21,7 +22,7 @@ const ListTeamsPage = () => (
 		</div>
 		<div className="flex flex-col gap-4 lg:basis-3/5">
 			<TeamFormModal />
-			<Suspense fallback={<div>Loading...</div>}>
+			<Suspense fallback={<Spinner />}>
 				<TeamList />
 			</Suspense>
 		</div>

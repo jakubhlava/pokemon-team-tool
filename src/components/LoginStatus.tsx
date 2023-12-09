@@ -1,10 +1,12 @@
 'use client';
 
 import { signIn, signOut, useSession } from 'next-auth/react';
+import {Spinner} from "@/components/spinner";
+import React from "react";
 
 export const LoginStatus = () => {
 	const { data, status } = useSession();
-	if (status === 'loading') return <div>loading...</div>;
+	if (status === 'loading') return <Spinner />;
 	if (status === 'unauthenticated') {
 		return (
 			<div>
