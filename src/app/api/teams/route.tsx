@@ -1,6 +1,7 @@
+import { getServerSession } from 'next-auth';
+
 import { authOptions } from '@/server/auth';
 import { db } from '@/server/db';
-import { getServerSession } from 'next-auth';
 
 export const GET = async (_: Request) => {
 	const session = await getServerSession(authOptions);

@@ -1,7 +1,7 @@
 import { Card } from '@/components/Card';
 import { PokemonApi } from '@/pokemon/pokeapi';
 import PokemonTypeBadge from '@/components/PokemonTypeBadge';
-import {TeamWithPokemons} from "@/types/team";
+import { type TeamWithPokemons } from '@/types/team';
 
 type TeamCardProps = {
 	team: TeamWithPokemons;
@@ -9,20 +9,22 @@ type TeamCardProps = {
 
 export const TeamCard = async ({ team }: TeamCardProps) => {
 	const pokemons = await Promise.all(
-		team.TeamPokemon.map(async teamPokemon => {
-			return {
-				pokemon: await PokemonApi.pokemon.getPokemonById(teamPokemon.pokemon.api_id),
-				specie: await PokemonApi.pokemon.getPokemonSpeciesById(teamPokemon.pokemon.api_id)
-			};
-		})
+		team.TeamPokemon.map(async teamPokemon => ({
+			pokemon: await PokemonApi.pokemon.getPokemonByName(
+				teamPokemon.pokemon.nameId
+			),
+			specie: await PokemonApi.pokemon.getPokemonSpeciesByName(
+				teamPokemon.pokemon.nameId
+			)
+		}))
 	);
 	return (
-		<Card hoverable={true} clickable={true}>
+		<Card hoverable clickable>
 			<div className="flex flex-col gap-4">
 				<div className="flex flex-row items-center justify-between">
 					<h2 className="text-lg font-bold text-emerald-900">{team.name}</h2>
 					<button className="btn btn-circle btn-error btn-sm text-white">
-						<i className="bi bi-trash"></i>
+						<i className="bi bi-trash" />
 					</button>
 				</div>
 				{team.description !== null && <p>{team.description}</p>}
@@ -36,10 +38,9 @@ export const TeamCard = async ({ team }: TeamCardProps) => {
 								/>
 							</div>
 							<div
-								className={
-									'absolute -bottom-24 z-50 hidden flex-col gap-2 rounded-2xl border border-emerald-100 bg-white p-4 shadow-xl transition-all duration-500 group-hover:flex ' +
-									(index < pokemons.length / 2 ? 'left-0' : 'right-0')
-								}
+								className={`absolute -bottom-24 z-50 hidden flex-col gap-2 rounded-2xl border border-emerald-100 bg-white p-4 shadow-xl transition-all duration-500 group-hover:flex ${
+									index < pokemons.length / 2 ? 'left-0' : 'right-0'
+								}`}
 							>
 								<span className="font-semibold">
 									{pokemon.specie.names.find(

@@ -1,8 +1,9 @@
 import { getServerSession } from 'next-auth';
+import { Prisma } from '@prisma/client';
+
 import { authOptions } from '@/server/auth';
 import { teamCreateSchema, teamUpdateSchema } from '@/validators/api';
 import { db } from '@/server/db';
-import { Prisma } from '@prisma/client';
 
 export const POST = async (req: Request) => {
 	const session = await getServerSession(authOptions);
@@ -79,4 +80,3 @@ export const PUT = async (req: Request) => {
 		});
 	}
 };
-
