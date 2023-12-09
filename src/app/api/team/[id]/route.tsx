@@ -4,6 +4,53 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/server/auth';
 import { db } from '@/server/db';
 
+export const GET = async (
+	_: Request,
+	{ params }: { params: { id: string } }
+) => {
+	const session = await getServerSession(authOptions);
+
+	if (!session) {
+		return new Response(JSON.stringify('Unauthorized.'), { status: 401 });
+	}
+
+	const { id } = params;
+
+	try {
+		const user = session.user;
+
+		const team = await db.team.findUnique({
+			where: {
+				id
+			},
+			include: {
+				TeamPokemon: {
+					include: {
+						pokemon: true
+					}
+				}
+			}
+		});
+
+		if (!team || team.userId !== user.id) {
+			return new Response(JSON.stringify('Team not found.'), {
+				status: 404
+			});
+		}
+
+		return new Response(JSON.stringify(team), { status: 200 });
+	} catch (e) {
+		if (e instanceof Prisma.PrismaClientKnownRequestError) {
+			return new Response(JSON.stringify('Team not found.'), {
+				status: 404
+			});
+		}
+		return new Response(JSON.stringify('Something went wrong.'), {
+			status: 500
+		});
+	}
+};
+
 export const DELETE = async (
 	_: Request,
 	{ params }: { params: { id: string } }
