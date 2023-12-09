@@ -24,6 +24,7 @@ export default function RootLayout({
 			className="m-0 h-screen w-screen bg-gradient-to-b from-emerald-600 to-green-300"
 		>
 			<body className={inter.className}>
+
 				<Providers>{children}</Providers>
 			</body>
 		</html>

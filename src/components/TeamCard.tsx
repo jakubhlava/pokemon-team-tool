@@ -1,17 +1,18 @@
 import { Card } from '@/components/Card';
 import { PokemonApi } from '@/pokemon/pokeapi';
 import PokemonTypeBadge from '@/components/PokemonTypeBadge';
+import {TeamWithPokemons} from "@/types/team";
 
 type TeamCardProps = {
-	team: MockTeam;
+	team: TeamWithPokemons;
 };
 
 export const TeamCard = async ({ team }: TeamCardProps) => {
 	const pokemons = await Promise.all(
-		team.pokemon.map(async pokemon => {
+		team.TeamPokemon.map(async teamPokemon => {
 			return {
-				pokemon: await PokemonApi.pokemon.getPokemonById(pokemon),
-				specie: await PokemonApi.pokemon.getPokemonSpeciesById(pokemon)
+				pokemon: await PokemonApi.pokemon.getPokemonById(teamPokemon.pokemon.api_id),
+				specie: await PokemonApi.pokemon.getPokemonSpeciesById(teamPokemon.pokemon.api_id)
 			};
 		})
 	);

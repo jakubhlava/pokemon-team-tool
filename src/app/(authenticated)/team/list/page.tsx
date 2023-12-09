@@ -1,25 +1,14 @@
 import { Card } from '@/components/Card';
-import { TeamCard } from '@/components/TeamCard';
 import TeamFormModal from "@/components/TeamFormModal";
 import { Metadata } from 'next';
+import {TeamList} from "@/components/TeamList";
+import {Suspense} from "react";
 
 export const metadata: Metadata = {
 	title: 'Team list'
 };
 
 const ListTeamsPage = () => {
-	const teams: MockTeam[] = [
-		{
-			name: 'Team 1',
-			pokemon: [1, 2, 3, 4, 5, 6],
-			description: 'Tým 1 je nejlepší tým'
-		},
-		{
-			name: 'Team 2',
-			pokemon: [7, 8, 9]
-		}
-	];
-
 	return (
 		<>
 			<div className="m-2 flex flex-col gap-8 lg:m-8 lg:flex-row">
@@ -33,13 +22,11 @@ const ListTeamsPage = () => {
 				</div>
 				<div className="flex flex-col gap-4 lg:basis-3/5">
 					<TeamFormModal />
-
-					{teams.map(team => (
-						<TeamCard team={team} key={team.name}></TeamCard>
-					))}
+					<Suspense fallback={<div>Loading...</div>}>
+						<TeamList />
+					</Suspense>
 				</div>
 			</div>
-
 		</>
 	);
 };
