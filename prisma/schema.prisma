@@ -58,8 +58,8 @@ model VerificationToken {
 
 model Pokemon {
   id          String        @id @default(cuid())
-  api_id      Int           @unique
   name        String        @unique
+  nameId      String        @unique
   typeOne     String
   typeTwo     String?
   TeamPokemon TeamPokemon[]
