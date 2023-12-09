@@ -1,6 +1,7 @@
 import type z from 'zod';
-import {teamForm, teamSchema} from "@/validators/team";
+
+import { type teamForm, type teamSchema } from '@/validators/team';
 
 export type TeamFormValues = z.infer<typeof teamForm>;
 
-export type Team = z.infer<typeof teamSchema>
+export type Team = z.infer<typeof teamSchema>;

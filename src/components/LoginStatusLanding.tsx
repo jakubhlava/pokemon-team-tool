@@ -18,7 +18,7 @@ export const LoginStatusLanding = () => {
 					onClick={() => signIn('discord')}
 					className="btn btn-secondary btn-lg rounded-full shadow-lg"
 				>
-					Join us with <i className="bi bi-discord"></i>
+					Join us with <i className="bi bi-discord" />
 				</button>
 			</div>
 		);
@@ -26,8 +26,7 @@ export const LoginStatusLanding = () => {
 	return (
 		<div className="flex items-center gap-3">
 			<Link href="/team/list" className="btn btn-info btn-lg rounded-full">
-				Continue to app, {data?.user.name}{' '}
-				<i className="bi bi-chevron-right"></i>
+				Continue to app, {data?.user.name} <i className="bi bi-chevron-right" />
 			</Link>
 		</div>
 	);

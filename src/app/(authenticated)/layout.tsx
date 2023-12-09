@@ -1,5 +1,6 @@
+import { type PropsWithChildren } from 'react';
+
 import { LoginStatus } from '@/components/LoginStatus';
-import { PropsWithChildren } from 'react';
 
 const AuthenticatedLayout = ({ children }: PropsWithChildren) => (
 	<div className="flex flex-col gap-4">

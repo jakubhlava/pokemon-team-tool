@@ -15,11 +15,13 @@ import { db } from '@/server/db';
  * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
  */
 declare module 'next-auth' {
-	interface Session extends DefaultSession {
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore
+	type Session = {
 		user: {
 			id: string;
 		} & DefaultSession['user'];
-	}
+	} & DefaultSession;
 }
 
 /**

@@ -1,5 +1,6 @@
-import { PropsWithChildren, useEffect, useState } from 'react';
-import { Move } from 'pokenode-ts';
+import { type PropsWithChildren, useEffect, useState } from 'react';
+import { type Move } from 'pokenode-ts';
+
 import PokemonTypeBadge from '@/components/PokemonTypeBadge';
 
 type AttackSelectProps = {
@@ -18,6 +19,7 @@ export const AttackSelect = ({
 	const setMove = (move: Move) => {
 		setSelectedMove(move);
 		onChange(move);
+		setOpen(false);
 	};
 
 	useEffect(() => {
@@ -47,17 +49,14 @@ export const AttackSelect = ({
 						<div className="flex w-full justify-between pe-2">
 							{selectedMove.names.find(name => name.language.name === 'en')
 								?.name ?? selectedMove.name}{' '}
-							<PokemonTypeBadge
-								cut
-								type={selectedMove.type.name}
-							></PokemonTypeBadge>
+							<PokemonTypeBadge cut type={selectedMove.type.name} />
 						</div>
 					) : (
 						children
 					)}
 				</div>
 				<div className="flex items-center justify-center">
-					<i className="bi bi-chevron-down"></i>
+					<i className="bi bi-chevron-down" />
 				</div>
 			</button>
 			{open && (
@@ -75,14 +74,15 @@ export const AttackSelect = ({
 							return 0;
 						})
 						.map(attack => (
-							<li
-								key={attack.id}
-								onClick={() => setMove(attack)}
-								className="mx-2 my-1 flex cursor-pointer justify-between rounded-xl p-0.5 text-emerald-900 transition-all duration-150 hover:bg-emerald-100"
-							>
-								{attack.names.find(name => name.language.name === 'en')?.name ??
-									attack.name}
-								<PokemonTypeBadge type={attack.type.name}></PokemonTypeBadge>
+							<li key={attack.id} className="mx-2 my-1">
+								<button
+									className="flex h-full w-full justify-between rounded-xl p-0.5 text-emerald-900 transition-all duration-150 hover:bg-emerald-100"
+									onClick={() => setMove(attack)}
+								>
+									{attack.names.find(name => name.language.name === 'en')
+										?.name ?? attack.name}
+									<PokemonTypeBadge type={attack.type.name} />
+								</button>
 							</li>
 						))}
 				</ul>

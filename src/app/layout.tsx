@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+
 import './globals.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Providers } from './Providers';
@@ -12,20 +13,16 @@ export const metadata: Metadata = {
 	metadataBase: new URL(process.env.DEPLOY_URL ?? 'http://localhost:3000/')
 };
 
-export default function RootLayout({
-	children
-}: {
-	children: React.ReactNode;
-}) {
-	return (
-		<html
-			lang="en"
-			data-theme="emerald"
-			className="m-0 h-screen w-screen bg-gradient-to-b from-emerald-600 to-green-300"
-		>
-			<body className={inter.className}>
-				<Providers>{children}</Providers>
-			</body>
-		</html>
-	);
-}
+const RootLayout = ({ children }: { children: React.ReactNode }) => (
+	<html
+		lang="en"
+		data-theme="emerald"
+		className="m-0 h-screen w-screen bg-gradient-to-b from-emerald-600 to-green-300"
+	>
+		<body className={inter.className}>
+			<Providers>{children}</Providers>
+		</body>
+	</html>
+);
+
+export default RootLayout;

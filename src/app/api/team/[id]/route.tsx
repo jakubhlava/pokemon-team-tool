@@ -1,7 +1,8 @@
-import { authOptions } from '@/server/auth';
-import { db } from '@/server/db';
 import { Prisma } from '@prisma/client';
 import { getServerSession } from 'next-auth';
+
+import { authOptions } from '@/server/auth';
+import { db } from '@/server/db';
 
 export const DELETE = async (
 	_: Request,

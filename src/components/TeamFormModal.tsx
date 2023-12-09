@@ -2,22 +2,19 @@
 
 import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import {Team, TeamFormValues} from '@/types/team';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { teamForm , teamSchema} from '@/validators/team';
+import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+
+import { type Team, type TeamFormValues } from '@/types/team';
+import { teamForm, teamSchema } from '@/validators/team';
 import { Error } from '@/components/Error';
-import { useMutation } from '@tanstack/react-query';import {useRouter} from "next/navigation";
-import {Spinner} from "@/components/spinner";
+import { Spinner } from '@/components/spinner';
 
 const TeamFormModal = () => {
 	const modalRef = useRef<HTMLDialogElement>(null);
 
-	const {
-		register,
-		handleSubmit,
-		formState,
-		reset
-	} = useForm<TeamFormValues>({
+	const { register, handleSubmit, formState, reset } = useForm<TeamFormValues>({
 		resolver: zodResolver(teamForm)
 	});
 
@@ -34,7 +31,7 @@ const TeamFormModal = () => {
 		},
 		onSuccess: async (team: Team) => {
 			closeCreateModal();
-			router.push('/team/' + team.id)
+			router.push(`/team/${team.id}`);
 		}
 	});
 
@@ -87,7 +84,9 @@ const TeamFormModal = () => {
 								className="input input-bordered w-full"
 								{...register('name')}
 							/>
-							{formState.errors.name && <Error>{formState.errors.name?.message}</Error>}
+							{formState.errors.name && (
+								<Error>{formState.errors.name?.message}</Error>
+							)}
 							<label htmlFor="teamDescritpion" className="label">
 								Enter description of new team
 							</label>
@@ -95,14 +94,18 @@ const TeamFormModal = () => {
 								id="teamDescritpion"
 								className="input input-bordered h-16 w-full"
 								{...register('description')}
-							></textarea>
+							/>
 							{formState.errors.description && (
 								<Error>{formState.errors.description?.message}</Error>
 							)}
 						</div>
-						{formState.isSubmitting ? <Spinner /> : <button className="btn btn-primary rounded-2xl">
-							<i className="bi bi-plus"></i> Create team
-						</button>}
+						{formState.isSubmitting ? (
+							<Spinner />
+						) : (
+							<button className="btn btn-primary rounded-2xl">
+								<i className="bi bi-plus" /> Create team
+							</button>
+						)}
 						<button
 							className="absolute right-2 top-0 m-2 text-2xl"
 							onClick={closeCreateModalEvent}
