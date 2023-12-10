@@ -8,3 +8,20 @@ export const teamForm = z.object({
 export const teamSchema = teamForm.extend({
 	id: z.string()
 });
+
+export const teamPokemonSchema = z.object({
+	id: z.string(),
+	pokemonId: z.string(),
+	teamId: z.string(),
+	pokemon: z.object({
+		id: z.string(),
+		name: z.string(),
+		nameId: z.string(),
+		typeOne: z.string(),
+		typeTwo: z.string().nullable()
+	}),
+	moveOneId: z.number().nullable(),
+	moveTwoId: z.number().nullable(),
+	moveThreeId: z.number().nullable(),
+	moveFourId: z.number().nullable()
+});

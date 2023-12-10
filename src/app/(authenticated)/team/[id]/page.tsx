@@ -51,7 +51,7 @@ const TeamDetailPage = async ({ params }: { params: { id: string } }) => {
 		<div className="flex flex-col p-4 xl:flex-row xl:gap-8">
 			<div className="flex flex-col gap-4 xl:basis-3/5">
 				<PokemonSearch />
-				<PokemonList />
+				<PokemonList team={team} />
 			</div>
 			<div className="flex flex-col gap-4 xl:basis-2/5">
 				<StaticCard>
