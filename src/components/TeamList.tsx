@@ -30,9 +30,7 @@ export const TeamList = async () => {
 
 		return (
 			<>
-				{teams.length === 0 && (
-					<p>You don&apos;t have any teams yet...</p>
-				)}
+				{teams.length === 0 && <p>You don&apos;t have any teams yet...</p>}
 
 				{teams.map(team => (
 					<TeamCard team={team} key={team.id} />

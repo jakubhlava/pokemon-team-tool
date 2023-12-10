@@ -1,8 +1,9 @@
 'use client';
 
 import { signIn, signOut, useSession } from 'next-auth/react';
-import {Spinner} from "@/components/spinner";
-import React from "react";
+import React from 'react';
+
+import { Spinner } from '@/components/spinner';
 
 export const LoginStatus = () => {
 	const { data, status } = useSession();
@@ -11,7 +12,7 @@ export const LoginStatus = () => {
 		return (
 			<div>
 				<button
-					onClick={() => signIn('discord')}
+					onClick={() => signIn('discord', { callbackUrl: '/team/list' })}
 					className="btn btn-ghost btn-sm"
 				>
 					Sign in with <i className="bi bi-discord text-[#7289da]" />
@@ -24,7 +25,10 @@ export const LoginStatus = () => {
 			<span className="text-sm font-semibold">
 				Logged in as {data?.user.name}
 			</span>
-			<button onClick={() => signOut()} className="btn btn-ghost btn-sm">
+			<button
+				onClick={() => signOut({ callbackUrl: '/' })}
+				className="btn btn-ghost btn-sm"
+			>
 				Sign out
 			</button>
 		</div>
