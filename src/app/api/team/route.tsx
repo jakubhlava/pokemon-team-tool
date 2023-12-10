@@ -53,7 +53,7 @@ export const PUT = async (req: Request) => {
 
 		const data = await teamUpdateSchema.parseAsync(await req.json());
 
-		await db.team.update({
+		const updatedTeam = await db.team.update({
 			where: {
 				id: data.id,
 				userId: user.id
@@ -63,7 +63,7 @@ export const PUT = async (req: Request) => {
 			}
 		});
 
-		return new Response(null, { status: 204 });
+		return new Response(JSON.stringify(updatedTeam), { status: 201 });
 	} catch (e) {
 		if (e instanceof SyntaxError) {
 			return new Response(JSON.stringify('Invalid JSON.'), {

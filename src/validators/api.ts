@@ -7,5 +7,5 @@ export const teamCreateSchema = z.object({
 export const teamUpdateSchema = z.object({
 	id: z.string(),
 	name: z.string(),
-	description: z.string()
+	description: z.string().nullable().optional()
 });
