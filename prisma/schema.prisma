@@ -81,8 +81,8 @@ model TeamPokemon {
   teamId      String
   pokemon     Pokemon @relation(fields: [pokemonId], references: [id])
   pokemonId   String
-  moveOneId   Int?
-  moveTwoId   Int?
-  moveThreeId Int?
-  moveFourId  Int?
+  moveOneId   String?
+  moveTwoId   String?
+  moveThreeId String?
+  moveFourId  String?
 }
