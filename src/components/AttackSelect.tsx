@@ -42,7 +42,11 @@ export const AttackSelect = ({
 		<div className="relative">
 			<button
 				onClick={() => setOpen(!open)}
-				className="flex h-10 w-full items-center justify-between rounded-lg border border-emerald-900 bg-emerald-700 px-4 py-1 text-white transition-all duration-150 hover:bg-emerald-800 "
+				className={`flex h-10 w-full items-center justify-between rounded-lg border border-emerald-900  px-4 py-1 transition-all duration-150  ${
+					selectedMove !== null
+						? `bg-${selectedMove.type.name}-accent text-black hover:bg-${selectedMove.type.name}-dark hover:text-white`
+						: 'bg-emerald-700 text-white hover:bg-emerald-800'
+				}`}
 			>
 				<div className="flex w-full justify-between">
 					{selectedMove !== null ? (

@@ -1,13 +1,14 @@
-'use client'
+'use client';
 
-import {useRef} from "react";
-import {ConfirmDialog} from "@/components/ConfirmDialog";
-import {useMutation} from "@tanstack/react-query";
-import {useRouter} from "next/navigation";
+import { useRef } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+
+import { ConfirmDialog } from '@/components/ConfirmDialog';
 
 type TeamDeleteButtonProps = {
 	teamId: string;
-}
+};
 
 export const TeamDeleteButton = (props: TeamDeleteButtonProps) => {
 	const dialogRef = useRef<HTMLDialogElement>(null);
@@ -16,8 +17,8 @@ export const TeamDeleteButton = (props: TeamDeleteButtonProps) => {
 
 	const mutation = useMutation({
 		mutationFn: async (teamId: string) => {
-			await fetch('/api/team/' + teamId, {
-				method: 'DELETE',
+			await fetch(`/api/team/${teamId}`, {
+				method: 'DELETE'
 			});
 		}
 	});
@@ -27,23 +28,26 @@ export const TeamDeleteButton = (props: TeamDeleteButtonProps) => {
 
 		closeDialog();
 		router.refresh();
-	}
+	};
 
 	const openDialog = () => {
 		if (dialogRef.current) {
 			dialogRef.current.showModal();
 		}
-	}
+	};
 
 	const closeDialog = () => {
 		if (dialogRef.current) {
 			dialogRef.current.close();
 		}
-	}
+	};
 
 	return (
 		<>
-			<button className="btn btn-circle btn-error btn-sm text-white" onClick={openDialog}>
+			<button
+				className="flex h-full w-full items-center justify-center text-white"
+				onClick={openDialog}
+			>
 				<i className="bi bi-trash" />
 			</button>
 
@@ -55,5 +59,5 @@ export const TeamDeleteButton = (props: TeamDeleteButtonProps) => {
 				isLoading={mutation.isPending || mutation.isSuccess}
 			/>
 		</>
-	)
-}
+	);
+};
