@@ -3,22 +3,18 @@ import { Suspense } from 'react';
 import { PokemonApi } from '@/pokemon/pokeapi';
 import PokemonTypeBadge from '@/components/PokemonTypeBadge';
 import { PokemonAttackSelection } from '@/components/PokemonAttackSelection';
+import { PokemonDeleteButton } from '@/components/PokemonDeleteButton';
 
 export type PokemonCardProps = {
-	pokemonName?: string;
-	pokemonId?: number;
+	teamPokemonId: string;
+	pokemonName: string;
 };
 
 export const PokemonCardContent = async ({
-	pokemonName,
-	pokemonId
+	teamPokemonId,
+	pokemonName
 }: PokemonCardProps) => {
-	const pokemon =
-		pokemonName !== undefined
-			? await PokemonApi.pokemon.getPokemonByName(pokemonName ?? '')
-			: await PokemonApi.pokemon.getPokemonById(pokemonId ?? 0);
-
-	// TODO: Rozdělit do víc komponent, aby se loadovaly attacky zvlášť a pokemon už byl na screenu
+	const pokemon = await PokemonApi.pokemon.getPokemonByName(pokemonName ?? '');
 
 	const specie = await PokemonApi.pokemon.getPokemonSpeciesByName(
 		pokemon.species?.name
@@ -42,9 +38,7 @@ export const PokemonCardContent = async ({
 						))}
 					</div>
 				</div>
-				<button className="btn btn-circle btn-error btn-sm text-white">
-					<i className="bi bi-trash" />
-				</button>
+				<PokemonDeleteButton teamPokemonId={teamPokemonId} />
 			</div>
 			<Suspense
 				fallback={

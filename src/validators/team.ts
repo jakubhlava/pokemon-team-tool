@@ -20,8 +20,8 @@ export const teamPokemonSchema = z.object({
 		typeOne: z.string(),
 		typeTwo: z.string().nullable()
 	}),
-	moveOneId: z.number().nullable(),
-	moveTwoId: z.number().nullable(),
-	moveThreeId: z.number().nullable(),
-	moveFourId: z.number().nullable()
+	moveOneId: z.string().nullable(),
+	moveTwoId: z.string().nullable(),
+	moveThreeId: z.string().nullable(),
+	moveFourId: z.string().nullable()
 });

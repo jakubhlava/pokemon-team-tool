@@ -16,3 +16,9 @@ export type TeamWithPokemons = Prisma.TeamGetPayload<{
 		};
 	};
 }>;
+
+export type TeamPokemonWithPokemon = Prisma.TeamPokemonGetPayload<{
+	include: {
+		pokemon: true;
+	};
+}>;
