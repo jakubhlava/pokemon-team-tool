@@ -5,6 +5,7 @@ import { PokemonSearch } from '@/components/PokemonSearch';
 import { PokemonList } from '@/components/PokemonList';
 import { StaticCard } from '@/components/StaticCard';
 import { db } from '@/server/db';
+import TeamEditButton from '@/components/TeamEditButton';
 
 export const metadata: Metadata = {
 	title: 'Create team'
@@ -48,22 +49,33 @@ const TeamDetailPage = async ({ params }: { params: { id: string } }) => {
 	}
 
 	return (
-		<div className="flex flex-col p-4 xl:flex-row xl:gap-8">
-			<div className="flex flex-col gap-4 xl:basis-3/5">
-				<PokemonSearch />
-				<PokemonList />
+		<div className="p-4">
+			<div className="flex items-center justify-between">
+				<h1 className="mb-2 text-4xl font-bold text-gray-900">{team.name}</h1>
+				<TeamEditButton team={team} />
 			</div>
-			<div className="flex flex-col gap-4 xl:basis-2/5">
-				<StaticCard>
-					<h1 className="text-2xl font-semibold text-emerald-900">
-						Stats analysis
-					</h1>
-				</StaticCard>
-				<StaticCard>
-					<p>Něco něco, nevim</p>
-					<p>Tabulka, něco</p>
-					<p>Dobrej tým 👍, cg</p>
-				</StaticCard>
+
+			{team.description && (
+				<p className="mb-4 text-lg text-gray-700">{team.description}</p>
+			)}
+
+			<div className="flex flex-col p-4 xl:flex-row xl:gap-8">
+				<div className="flex flex-col gap-4 xl:basis-3/5">
+					<PokemonSearch />
+					<PokemonList />
+				</div>
+				<div className="flex flex-col gap-4 xl:basis-2/5">
+					<StaticCard>
+						<h1 className="text-2xl font-semibold text-emerald-900">
+							Stats analysis
+						</h1>
+					</StaticCard>
+					<StaticCard>
+						<p>Něco něco, nevim</p>
+						<p>Tabulka, něco</p>
+						<p>Dobrej tým 👍, cg</p>
+					</StaticCard>
+				</div>
 			</div>
 		</div>
 	);
