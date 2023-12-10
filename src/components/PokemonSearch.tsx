@@ -1,16 +1,8 @@
-import { type Dispatch, type SetStateAction, useState, Suspense } from 'react';
+import { useState, Suspense } from 'react';
 
 import { PokemonSearchResults } from './PokemonSearchResults';
 
-type PokemonSearchProps = {
-	pokemons: string[];
-	setPokemons: Dispatch<SetStateAction<string[]>>;
-};
-
-export const PokemonSearch = ({
-	pokemons,
-	setPokemons
-}: PokemonSearchProps) => {
+export const PokemonSearch = () => {
 	const [showResults, setShowResults] = useState(false);
 	const [inputValue, setInputValue] = useState('');
 
@@ -37,11 +29,7 @@ export const PokemonSearch = ({
 			{showResults && (
 				<div className="mt-2 max-h-80 w-full overflow-y-auto rounded-2xl border-emerald-900 bg-white/60 p-2 shadow-xl">
 					<Suspense fallback={<span>Loading...</span>}>
-						<PokemonSearchResults
-							query={inputValue}
-							pokemons={pokemons}
-							setPokemons={setPokemons}
-						/>
+						<PokemonSearchResults query={inputValue} />
 					</Suspense>
 				</div>
 			)}

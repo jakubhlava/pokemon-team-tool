@@ -1,5 +1,5 @@
 import { getServerSession } from 'next-auth';
-import { Prisma, type Team, type Pokemon } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 
 import { authOptions } from '@/server/auth';
 import { db } from '@/server/db';

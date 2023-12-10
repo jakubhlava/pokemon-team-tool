@@ -1,8 +1,6 @@
 import { type Metadata } from 'next';
 import Link from 'next/link';
 
-import { PokemonSearch } from '@/components/PokemonSearch';
-import { PokemonList } from '@/components/PokemonList';
 import { StaticCard } from '@/components/StaticCard';
 import { db } from '@/server/db';
 import TeamEditButton from '@/components/TeamEditButton';
