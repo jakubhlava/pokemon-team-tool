@@ -7,10 +7,7 @@ import {
 import { Card } from '@/components/Card';
 import { StaticCard } from '@/components/StaticCard';
 
-export const PokemonCardWrapper = ({
-	pokemonId,
-	pokemonName
-}: PokemonCardProps) => (
+export const PokemonCardWrapper = ({ pokemonName }: PokemonCardProps) => (
 	<Suspense
 		fallback={
 			<StaticCard>
@@ -21,7 +18,7 @@ export const PokemonCardWrapper = ({
 		}
 	>
 		<Card hoverable>
-			<PokemonCardContent pokemonId={pokemonId} pokemonName={pokemonName} />
+			<PokemonCardContent pokemonName={pokemonName} />
 		</Card>
 	</Suspense>
 );
