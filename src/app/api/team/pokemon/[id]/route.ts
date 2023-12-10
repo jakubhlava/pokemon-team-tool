@@ -4,13 +4,14 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { authOptions } from '@/server/auth';
 import { db } from '@/server/db';
 
-export const PATCH = async (
-	req: Request,
-	{ params }: { params: { id: string } }
-) => {};
+// TODO (Issue #16)
+// export const PATCH = async (
+// 	_: Request,
+// 	{ params }: { params: { id: string } }
+// ) => {};
 
 export const DELETE = async (
-	req: Request,
+	_: Request,
 	{ params }: { params: { id: string } }
 ) => {
 	const session = await getServerSession(authOptions);

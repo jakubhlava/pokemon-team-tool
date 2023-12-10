@@ -1,8 +1,6 @@
 import { type Metadata } from 'next';
 import Link from 'next/link';
 
-import { PokemonSearch } from '@/components/PokemonSearch';
-import { PokemonList } from '@/components/PokemonList';
 import { StaticCard } from '@/components/StaticCard';
 import { db } from '@/server/db';
 import TeamEditButton from '@/components/TeamEditButton';
@@ -62,7 +60,7 @@ const TeamDetailPage = async ({ params }: { params: { id: string } }) => {
 
 			<div className="flex flex-col p-4 xl:flex-row xl:gap-8">
 				<div className="flex flex-col gap-4 xl:basis-3/5">
-					<TeamEditSection />
+					<TeamEditSection team={team} />
 				</div>
 				<div className="flex flex-col gap-4 xl:basis-2/5">
 					<StaticCard>

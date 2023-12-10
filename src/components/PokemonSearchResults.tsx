@@ -1,9 +1,4 @@
-import React, {
-	useState,
-	useEffect,
-	type Dispatch,
-	type SetStateAction
-} from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { type SearchPokemon } from '@/types/search_pokemon';
 
@@ -24,15 +19,9 @@ const getResults = async (query: string) => {
 
 type PokemonSearchResultProps = {
 	query: string;
-	pokemons: string[];
-	setPokemons: Dispatch<SetStateAction<string[]>>;
 };
 
-export const PokemonSearchResults = ({
-	query,
-	pokemons,
-	setPokemons
-}: PokemonSearchResultProps) => {
+export const PokemonSearchResults = ({ query }: PokemonSearchResultProps) => {
 	const [results, setResults] = useState<SearchPokemon[]>([]);
 
 	useEffect(() => {
@@ -55,11 +44,6 @@ export const PokemonSearchResults = ({
 	}
 
 	return results.map((pokemonData, index) => (
-		<PokemonSearchResult
-			key={index}
-			pokemonData={pokemonData}
-			pokemons={pokemons}
-			setPokemons={setPokemons}
-		/>
+		<PokemonSearchResult key={index} pokemonData={pokemonData} />
 	));
 };
