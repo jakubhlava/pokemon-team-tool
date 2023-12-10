@@ -21,9 +21,9 @@ export const TeamCard = async ({ team }: TeamCardProps) => {
 		}))
 	);
 	return (
-		<div className="group flex cursor-pointer overflow-clip rounded-2xl bg-white/60 shadow-xl backdrop-blur transition-all duration-500 hover:bg-white/70 active:scale-[99%]">
+		<div className="group/delete flex cursor-pointer rounded-2xl bg-white/60 shadow-xl backdrop-blur transition-all duration-500 hover:bg-white/70 active:scale-[99%]">
 			<Link href={`/team/${team.id}`} className=" w-full">
-				<div className="group-item flex flex-col gap-4  px-8 py-4 xl:py-4 2xl:px-8">
+				<div className="group-item/delete flex flex-col gap-4  px-8 py-4 xl:py-4 2xl:px-8">
 					<div className="flex flex-row items-center justify-between">
 						<h2 className="text-lg font-bold text-emerald-900">{team.name}</h2>
 					</div>
@@ -41,7 +41,7 @@ export const TeamCard = async ({ team }: TeamCardProps) => {
 									/>
 								</div>
 								<div
-									className={`absolute -bottom-24 z-50 hidden flex-col gap-2 rounded-2xl border border-emerald-100 bg-white p-4 shadow-xl transition-all duration-500 group-hover:flex ${
+									className={`absolute -bottom-24 z-50 block origin-top scale-y-0 flex-col gap-2 rounded-2xl border border-emerald-100 bg-white p-4 opacity-0 shadow-xl transition-all duration-300 group-hover:scale-y-100 group-hover:opacity-100 ${
 										index < pokemons.length / 2 ? 'left-0' : 'right-0'
 									}`}
 								>
@@ -64,7 +64,7 @@ export const TeamCard = async ({ team }: TeamCardProps) => {
 					</div>
 				</div>
 			</Link>
-			<div className="group-item w-20 bg-red-400 transition-all duration-500 hover:bg-red-600 lg:w-0 lg:opacity-0 lg:group-hover:w-20 lg:group-hover:opacity-100">
+			<div className="group-item/delete w-20 rounded-r-xl bg-red-400 transition-all duration-500 hover:bg-red-600 lg:w-0 lg:opacity-0 lg:group-hover/delete:w-20 lg:group-hover/delete:opacity-100">
 				<TeamDeleteButton teamId={team.id} />
 			</div>
 		</div>
