@@ -47,7 +47,10 @@ export const PokemonCardContent = async ({
 					</div>
 				}
 			>
-				<PokemonAttackSelection pokemon={pokemon} />
+				<PokemonAttackSelection
+					pokemon={pokemon}
+					teamPokemonId={teamPokemonId}
+				/>
 			</Suspense>
 		</div>
 	);

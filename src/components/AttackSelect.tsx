@@ -6,12 +6,14 @@ import PokemonTypeBadge from '@/components/PokemonTypeBadge';
 type AttackSelectProps = {
 	attacks: Move[];
 	onChange: (move: Move) => void;
+	presetMove?: Move;
 } & PropsWithChildren;
 
 export const AttackSelect = ({
 	children,
 	attacks,
-	onChange
+	onChange,
+	presetMove
 }: AttackSelectProps) => {
 	const [selectedMove, setSelectedMove] = useState<Move | null>(null);
 	const [open, setOpen] = useState(false);
@@ -37,6 +39,12 @@ export const AttackSelect = ({
 			document.removeEventListener('click', listener);
 		};
 	});
+
+	useEffect(() => {
+		if (presetMove) {
+			setSelectedMove(presetMove);
+		}
+	}, [presetMove]);
 
 	return (
 		<div className="relative">
