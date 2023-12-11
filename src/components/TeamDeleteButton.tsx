@@ -35,7 +35,7 @@ export const TeamDeleteButton = (props: TeamDeleteButtonProps) => {
 
 	const mutation = useMutation({
 		mutationFn: async (teamId: string) => {
-			const res = await fetch(`/api/eam/${teamId}`, {
+			const res = await fetch(`/api/team/${teamId}`, {
 				method: 'DELETE'
 			});
 

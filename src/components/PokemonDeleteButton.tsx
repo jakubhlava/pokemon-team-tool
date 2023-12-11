@@ -35,12 +35,12 @@ export const PokemonDeleteButton = ({
 
 	const mutation = useMutation({
 		mutationFn: async (teamPokemonId: string) => {
-			const response = await fetch(`/api/team/pokemon/${teamPokemonId}`, {
+			const res = await fetch(`/api/team/pokemon/${teamPokemonId}`, {
 				method: 'DELETE'
 			});
 
-			if (!response.ok) {
-				throw new Error(`${response.status} ${response.statusText}`);
+			if (!res.ok) {
+				throw new Error(`${res.status} ${res.statusText}`);
 			}
 		},
 		onSuccess: () => {
