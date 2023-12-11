@@ -6,6 +6,8 @@ import { ConfirmDialog } from '@/components/ConfirmDialog';
 import { ToastSuccess } from '@/toasts/Success';
 import { ToastError } from '@/toasts/Error';
 import { ToastWarning } from '@/toasts/Warning';
+import { useTeam } from '@/context/teamContext';
+import { useTeamEditState } from '@/context/teamEditContext';
 
 const errorHandle = (e: Error) => {
 	if (e.message.startsWith('4')) {
@@ -30,6 +32,7 @@ export const PokemonDeleteButton = ({
 	teamPokemonId
 }: PokemonDeleteButtonProps) => {
 	const dialogRef = useRef<HTMLDialogElement>(null);
+	const [_, setPokemons] = useTeamEditState().state;
 
 	const router = useRouter();
 
@@ -48,6 +51,7 @@ export const PokemonDeleteButton = ({
 				title: 'Pokemon deleted',
 				icon: 'success'
 			});
+			setPokemons(pokemons => pokemons.filter(p => p.id !== teamPokemonId));
 		},
 		onError: (e: Error) => {
 			closeDialog();

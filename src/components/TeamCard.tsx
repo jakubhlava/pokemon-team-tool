@@ -21,7 +21,7 @@ export const TeamCard = async ({ team }: TeamCardProps) => {
 		}))
 	);
 	return (
-		<div className="group/delete flex cursor-pointer rounded-2xl bg-white/60 shadow-xl backdrop-blur transition-all duration-500 hover:bg-white/70 active:scale-[99%]">
+		<div className="group/delete flex cursor-pointer rounded-2xl bg-white/60 shadow-xl backdrop-blur transition-all duration-500 hover:z-50 hover:bg-white/70 active:scale-[99%]">
 			<Link href={`/team/${team.id}`} className=" w-full">
 				<div className="group-item/delete flex flex-col gap-4  px-8 py-4 xl:py-4 2xl:px-8">
 					<div className="flex flex-row items-center justify-between">
@@ -30,10 +30,7 @@ export const TeamCard = async ({ team }: TeamCardProps) => {
 					{team.description !== null && <p>{team.description}</p>}
 					<div className="flex">
 						{pokemons.map((pokemon, index) => (
-							<div
-								className="group relative hover:z-50"
-								key={pokemon.pokemon.id}
-							>
+							<div className="group relative" key={pokemon.pokemon.id}>
 								<div className="-mx-1 flex h-14 w-14 justify-center rounded-full border border-emerald-400 bg-emerald-200/50 shadow-lg backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:scale-125 md:-mx-2 md:h-16 md:w-16 lg:h-24 lg:w-24">
 									<img
 										src={pokemon.pokemon.sprites.front_default ?? ''}
@@ -41,7 +38,7 @@ export const TeamCard = async ({ team }: TeamCardProps) => {
 									/>
 								</div>
 								<div
-									className={`absolute -bottom-24 z-50 block origin-top scale-y-0 flex-col gap-2 rounded-2xl border border-emerald-100 bg-white p-4 opacity-0 shadow-xl transition-all duration-300 group-hover:scale-y-100 group-hover:opacity-100 ${
+									className={`absolute -bottom-24 z-40 block origin-top scale-y-0 flex-col gap-2 rounded-2xl border border-emerald-100 bg-white p-4 opacity-0 shadow-xl transition-all duration-300 group-hover:scale-y-100 group-hover:opacity-100 ${
 										index < pokemons.length / 2 ? 'left-0' : 'right-0'
 									}`}
 								>

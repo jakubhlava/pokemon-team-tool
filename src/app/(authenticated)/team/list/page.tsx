@@ -11,16 +11,8 @@ export const metadata: Metadata = {
 };
 
 const ListTeamsPage = () => (
-	<div className="m-2 flex flex-col gap-8 lg:m-8 lg:flex-row">
-		<div className="lg:basis-2/5">
-			<StaticCard>
-				<h1 className="text-2xl font-semibold text-emerald-900">
-					Team preview
-				</h1>
-				Tady bude detail po rozkliknutí a tak... Asi
-			</StaticCard>
-		</div>
-		<div className="flex flex-col gap-4 lg:basis-3/5">
+	<div className="m-2 flex justify-center lg:flex-row">
+		<div className="flex w-full max-w-3xl flex-col gap-4">
 			<TeamCreateButton />
 			<Suspense fallback={<Spinner />}>
 				<TeamList />
