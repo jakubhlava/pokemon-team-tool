@@ -16,7 +16,6 @@ import {
 	type TeamWithPokemons
 } from '@/types/team';
 import { teamPokemonSchema } from '@/validators/team';
-import { useSearchState } from '@/context/searchContext';
 
 type TeamEditState = {
 	team: TeamWithPokemons;
