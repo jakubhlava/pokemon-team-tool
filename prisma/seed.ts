@@ -37,7 +37,7 @@ const isSkippable = (pokemonName: string): boolean => {
 	return matched;
 };
 
-const addPokemonData = async () => {
+const main = async () => {
 	const limit = 20;
 	let offset = 0;
 
@@ -131,62 +131,6 @@ const addPokemonData = async () => {
 			break;
 		}
 	}
-};
-
-const main = async () => {
-	// adding a user
-	const user = await prisma.user.create({
-		data: {
-			name: 'John Doe',
-			email: 'john@example.com',
-			emailVerified: new Date(),
-			image: 'https://example.com/john.jpg'
-		}
-	});
-
-	// adding Pokemon
-	await addPokemonData();
-
-	// adding teams
-	const team1Pokemon = await prisma.pokemon.findMany({
-		where: {
-			OR: [
-				{
-					nameId: 'charmander'
-				},
-				{
-					nameId: 'squirtle'
-				},
-				{
-					nameId: 'pikachu'
-				}
-			]
-		}
-	});
-
-	await prisma.team.create({
-		data: {
-			name: 'Team Alpha',
-			userId: user.id,
-			description: 'A powerful team of Pokemons',
-			TeamPokemon: {
-				create: [
-					{
-						pokemonId: team1Pokemon[0].id
-					},
-					{
-						pokemonId: team1Pokemon[1].id
-					},
-					{
-						pokemonId: team1Pokemon[2].id
-					}
-				]
-			}
-		},
-		include: {
-			TeamPokemon: true // Include TeamPokemon in the result
-		}
-	});
 
 	console.log('Test data created.');
 };
