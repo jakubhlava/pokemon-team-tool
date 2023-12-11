@@ -88,12 +88,6 @@ export const POST = async (
 		});
 	}
 
-	if (team.TeamPokemon.find(p => p.pokemonId === pokemonName)) {
-		return new Response(JSON.stringify('Pokemon already in team.'), {
-			status: 400
-		});
-	}
-
 	try {
 		const teamPokemon = await db.teamPokemon.create({
 			data: {

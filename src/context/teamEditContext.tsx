@@ -7,11 +7,16 @@ import {
 	useEffect,
 	useState
 } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { type Pokemon, type TeamPokemon } from '@prisma/client';
+import { useRouter } from 'next/navigation';
 
 import {
 	type TeamPokemonWithPokemon,
 	type TeamWithPokemons
 } from '@/types/team';
+import { teamPokemonSchema } from '@/validators/team';
+import { useSearchState } from '@/context/searchContext';
 
 type TeamEditState = {
 	team: TeamWithPokemons;
@@ -19,6 +24,7 @@ type TeamEditState = {
 		TeamPokemonWithPokemon[],
 		Dispatch<SetStateAction<TeamPokemonWithPokemon[]>>
 	];
+	addPokemon: (pokemonNameId: string) => Promise<void>;
 };
 
 const TeamEditContext = createContext<TeamEditState>(undefined as never);
@@ -30,14 +36,35 @@ type TeamEditProviderProps = {
 export const TeamEditProvider = ({ team, children }: TeamEditProviderProps) => {
 	const teamState = useState<TeamPokemonWithPokemon[]>([]);
 	const [_, setPokemons] = teamState;
+	const router = useRouter();
 
 	useEffect(() => {
 		setPokemons(team.TeamPokemon);
 	});
 
+	const addPokemon = async (pokemonNameId: string) => {
+		await mutation.mutateAsync(pokemonNameId);
+	};
+
+	const mutation = useMutation({
+		mutationFn: async (pokemonName: string) => {
+			const res = await fetch(`/api/team/${team.id}/pokemon`, {
+				method: 'POST',
+				body: JSON.stringify({ pokemonName })
+			});
+
+			return await teamPokemonSchema.parseAsync(await res.json());
+		},
+		onSuccess: async (teamPokemon: TeamPokemon & { pokemon: Pokemon }) => {
+			setPokemons(pokemons => [...pokemons, teamPokemon]);
+			router.refresh();
+		}
+	});
+
 	const state = {
 		team,
-		state: teamState
+		state: teamState,
+		addPokemon
 	};
 
 	return (

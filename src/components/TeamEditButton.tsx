@@ -22,8 +22,8 @@ const TeamEditButton = ({ team }: TeamEditButtonProps) => {
 
 	return (
 		<>
-			<button className="btn btn-primary" onClick={openModal}>
-				Edit
+			<button className="btn btn-circle btn-ghost btn-sm" onClick={openModal}>
+				<i className="bi bi-pencil" />
 			</button>
 
 			<TeamFormModal isOpen={isModalOpen} onClose={closeModal} team={team} />

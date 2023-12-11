@@ -2,6 +2,7 @@
 
 import { TeamEditProvider } from '@/context/teamEditContext';
 import { type TeamWithPokemons } from '@/types/team';
+import { SearchContextProvider } from '@/context/searchContext';
 
 import { PokemonList } from './PokemonList';
 import { PokemonSearch } from './PokemonSearch';
@@ -12,7 +13,9 @@ type TeamEditSectionProps = {
 
 export const TeamEditSection = ({ team }: TeamEditSectionProps) => (
 	<TeamEditProvider team={team}>
-		<PokemonSearch />
+		<SearchContextProvider>
+			<PokemonSearch />
+		</SearchContextProvider>
 		<PokemonList />
 	</TeamEditProvider>
 );

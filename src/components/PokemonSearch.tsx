@@ -1,38 +1,31 @@
 import { useState, Suspense } from 'react';
 
+import { useSearchState } from '@/context/searchContext';
+
 import { PokemonSearchResults } from './PokemonSearchResults';
 
 export const PokemonSearch = () => {
-	const [showResults, setShowResults] = useState(false);
-	const [inputValue, setInputValue] = useState('');
+	const [inputValue, setInputValue] = useSearchState();
 
 	const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
 		const value = e.target.value;
 		setInputValue(value);
-		setShowResults(value.length > 0);
-	};
-
-	const handleFocus = () => {
-		setShowResults(inputValue.length > 0);
 	};
 
 	return (
-		<div className="w-full px-2 py-2 xl:px-16 xl:py-8">
+		<div className="group relative z-[200] w-full">
 			<input
 				onChange={handleChange}
-				onBlur={() => setShowResults(false)}
-				onFocus={handleFocus}
-				className="input w-full rounded-2xl border-emerald-900 bg-white/60 placeholder-black shadow-xl"
-				placeholder="Search by Pokémon name"
+				value={inputValue}
+				className="group input w-full rounded-2xl border-emerald-900 bg-white/60 placeholder-black shadow-xl"
+				placeholder="Search by Pokémon name and click on result to add to team"
 			/>
 
-			{showResults && (
-				<div className="mt-2 max-h-80 w-full overflow-y-auto rounded-2xl border-emerald-900 bg-white/60 p-2 shadow-xl">
-					<Suspense fallback={<span>Loading...</span>}>
-						<PokemonSearchResults query={inputValue} />
-					</Suspense>
-				</div>
-			)}
+			<div className="absolute top-12 mt-2 hidden max-h-80 w-full overflow-y-auto rounded-2xl border-emerald-900 bg-white/80 p-2 shadow-xl backdrop-blur group-focus-within:block">
+				<Suspense fallback={<span>Loading...</span>}>
+					<PokemonSearchResults query={inputValue} />
+				</Suspense>
+			</div>
 		</div>
 	);
 };

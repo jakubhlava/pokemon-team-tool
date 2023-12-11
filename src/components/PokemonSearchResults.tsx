@@ -26,12 +26,24 @@ export const PokemonSearchResults = ({ query }: PokemonSearchResultProps) => {
 
 	useEffect(() => {
 		const fetchResults = async () => {
-			const data = await getResults(query);
-			setResults(data);
+			if (query.length > 0) {
+				const data = await getResults(query);
+				setResults(data);
+			}
 		};
 
 		fetchResults();
 	}, [query]);
+
+	if (query.length === 0) {
+		return (
+			<div className="flex flex-row justify-center">
+				<span className="p-2 text-center text-xl font-bold">
+					Start typing to see results...
+				</span>
+			</div>
+		);
+	}
 
 	if (results.length === 0) {
 		return (
