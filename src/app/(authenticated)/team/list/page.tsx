@@ -2,7 +2,6 @@ import { type Metadata } from 'next';
 import { Suspense } from 'react';
 
 import { TeamList } from '@/components/TeamList';
-import { StaticCard } from '@/components/StaticCard';
 import { Spinner } from '@/components/spinner';
 import TeamCreateButton from '@/components/TeamCreateButton';
 

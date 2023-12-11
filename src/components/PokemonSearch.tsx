@@ -1,4 +1,4 @@
-import { useState, Suspense } from 'react';
+import { Suspense } from 'react';
 
 import { useSearchState } from '@/context/searchContext';
 
