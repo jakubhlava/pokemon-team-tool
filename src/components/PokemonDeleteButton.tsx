@@ -3,6 +3,24 @@ import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 
 import { ConfirmDialog } from '@/components/ConfirmDialog';
+import { ToastSuccess } from '@/toasts/Success';
+import { ToastError } from '@/toasts/Error';
+import { ToastWarning } from '@/toasts/Warning';
+
+const errorHandle = (e: Error) => {
+	if (e.message.startsWith('4')) {
+		ToastWarning.fire({
+			title: e.message,
+			icon: 'warning'
+		});
+	}
+	if (e.message.startsWith('5')) {
+		ToastError.fire({
+			title: e.message,
+			icon: 'error'
+		});
+	}
+};
 
 type PokemonDeleteButtonProps = {
 	teamPokemonId: string;
@@ -17,9 +35,23 @@ export const PokemonDeleteButton = ({
 
 	const mutation = useMutation({
 		mutationFn: async (teamPokemonId: string) => {
-			await fetch(`/api/team/pokemon/${teamPokemonId}`, {
+			const response = await fetch(`/api/team/pokemon/${teamPokemonId}`, {
 				method: 'DELETE'
 			});
+
+			if (!response.ok) {
+				throw new Error(`${response.status} ${response.statusText}`);
+			}
+		},
+		onSuccess: () => {
+			ToastSuccess.fire({
+				title: 'Pokemon deleted',
+				icon: 'success'
+			});
+		},
+		onError: (e: Error) => {
+			closeDialog();
+			errorHandle(e);
 		}
 	});
 

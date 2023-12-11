@@ -8,8 +8,26 @@ import { useRouter } from 'next/navigation';
 
 import { type Team, type TeamFormValues } from '@/types/team';
 import { teamForm, teamSchema } from '@/validators/team';
-import { Error } from '@/components/Error';
+import { Error as ErrorElem } from '@/components/Error';
 import { Spinner } from '@/components/spinner';
+import { ToastSuccess } from '@/toasts/Success';
+import { ToastError } from '@/toasts/Error';
+import { ToastWarning } from '@/toasts/Warning';
+
+const errorHandle = (e: Error) => {
+	if (e.message.startsWith('4')) {
+		ToastWarning.fire({
+			title: e.message,
+			icon: 'warning'
+		});
+	}
+	if (e.message.startsWith('5')) {
+		ToastError.fire({
+			title: e.message,
+			icon: 'error'
+		});
+	}
+};
 
 type TeamFormModalProps = {
 	isOpen: boolean;
@@ -48,11 +66,20 @@ const TeamFormModal = ({ isOpen, onClose, team }: TeamFormModalProps) => {
 				body: JSON.stringify(formData)
 			});
 
+			if (!res.ok) {
+				throw new Error(`${res.status} ${res.statusText}`);
+			}
+
 			return teamSchema.parseAsync(await res.json());
 		},
 		onSuccess: async (team: Team) => {
 			closeModal();
 			router.push(`/team/${team.id}`);
+		},
+		onError: async (e: Error) => {
+			closeModal();
+			reset();
+			errorHandle(e);
 		}
 	});
 
@@ -60,17 +87,30 @@ const TeamFormModal = ({ isOpen, onClose, team }: TeamFormModalProps) => {
 		mutationFn: async (formData: TeamFormValues) => {
 			const teamId = team?.id;
 
-			const response = await fetch(`/api/team`, {
+			const res = await fetch(`/api/team`, {
 				method: 'PUT',
 				body: JSON.stringify({ id: teamId, ...formData })
 			});
 
-			return teamSchema.parseAsync(await response.json());
+			if (!res.ok) {
+				throw new Error(`${res.status} ${res.statusText}`);
+			}
+
+			return teamSchema.parseAsync(await res.json());
 		},
 		onSuccess: async (team: Team) => {
+			ToastSuccess.fire({
+				title: 'Team updated successfully!',
+				icon: 'success'
+			});
 			closeModal();
 			reset({ name: team.name, description: team.description });
 			router.refresh();
+		},
+		onError: async (e: Error) => {
+			closeModal();
+			reset();
+			errorHandle(e);
 		}
 	});
 
@@ -117,7 +157,7 @@ const TeamFormModal = ({ isOpen, onClose, team }: TeamFormModalProps) => {
 							{...register('name')}
 						/>
 						{formState.errors.name && (
-							<Error>{formState.errors.name?.message}</Error>
+							<ErrorElem>{formState.errors.name?.message}</ErrorElem>
 						)}
 						<label htmlFor="teamDescritpion" className="label">
 							Enter description of new team
@@ -128,7 +168,7 @@ const TeamFormModal = ({ isOpen, onClose, team }: TeamFormModalProps) => {
 							{...register('description')}
 						/>
 						{formState.errors.description && (
-							<Error>{formState.errors.description?.message}</Error>
+							<ErrorElem>{formState.errors.description?.message}</ErrorElem>
 						)}
 					</div>
 					{formState.isSubmitting ? (

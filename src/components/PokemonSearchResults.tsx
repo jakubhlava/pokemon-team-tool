@@ -1,18 +1,35 @@
 import React, { useState, useEffect } from 'react';
 
 import { type SearchPokemon } from '@/types/search_pokemon';
+import { ToastError } from '@/toasts/Error';
+import { ToastWarning } from '@/toasts/Warning';
 
 import { PokemonSearchResult } from './PokemonSearchResult';
 
 const getResults = async (query: string) => {
-	const result = await fetch(`/api/pokemon?query=${query}`, {
+	const res = await fetch(`/api/pokemon?query=${query}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'
 		}
 	});
 
-	const data = (await result.json()) as SearchPokemon[];
+	if (!res.ok) {
+		if (res.status.toString().startsWith('5')) {
+			ToastError.fire({
+				title: `${res.status} ${res.statusText}`,
+				icon: 'error'
+			});
+		}
+		if (res.status.toString().startsWith('4')) {
+			ToastWarning.fire({
+				title: `${res.status} ${res.statusText}`,
+				icon: 'warning'
+			});
+		}
+	}
+
+	const data = (await res.json()) as SearchPokemon[];
 
 	return data;
 };
