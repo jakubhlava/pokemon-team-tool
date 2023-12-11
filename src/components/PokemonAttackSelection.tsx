@@ -19,7 +19,7 @@ export const PokemonAttackSelection = async ({
 	);
 
 	const onMoveOneChange = async (move: Move) => {
-		await fetch(`http://localhost:3000/api/team/pokemon/${teamPokemonId}/`, {
+		await fetch(`/api/team/pokemon/${teamPokemonId}/`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ export const PokemonAttackSelection = async ({
 	};
 
 	const onMoveTwoChange = async (move: Move) => {
-		await fetch(`http://localhost:3000/api/team/pokemon/${teamPokemonId}/`, {
+		await fetch(`/api/team/pokemon/${teamPokemonId}/`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json'
@@ -43,7 +43,7 @@ export const PokemonAttackSelection = async ({
 	};
 
 	const onMoveThreeChange = async (move: Move) => {
-		await fetch(`http://localhost:3000/api/team/pokemon/${teamPokemonId}/`, {
+		await fetch(`/api/team/pokemon/${teamPokemonId}/`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json'
@@ -55,7 +55,7 @@ export const PokemonAttackSelection = async ({
 	};
 
 	const onMoveFourChange = async (move: Move) => {
-		await fetch(`http://localhost:3000/api/team/pokemon/${teamPokemonId}/`, {
+		await fetch(`/api/team/pokemon/${teamPokemonId}/`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json'
@@ -66,15 +66,12 @@ export const PokemonAttackSelection = async ({
 		});
 	};
 
-	const response = await fetch(
-		`http://localhost:3000/api/team/pokemon/${teamPokemonId}`,
-		{
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json'
-			}
+	const response = await fetch(`/api/team/pokemon/${teamPokemonId}`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
 		}
-	);
+	});
 
 	const fetchedPokemon = await response.json();
 
