@@ -1,22 +1,27 @@
-import { type Dispatch, type SetStateAction } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { type Pokemon, type TeamPokemon } from '@prisma/client';
+import { useRouter } from 'next/navigation';
 
 import { type SearchPokemon } from '@/types/search_pokemon';
+import { useTeamEditState } from '@/context/teamEditContext';
+import { teamPokemonSchema } from '@/validators/team';
+import { useSearchState } from '@/context/searchContext';
 
 import PokemonTypeBadge from './PokemonTypeBadge';
 
 type PokemonSearchResultProps = {
 	pokemonData: SearchPokemon;
-	pokemons: string[];
-	setPokemons: Dispatch<SetStateAction<string[]>>;
 };
 
 export const PokemonSearchResult = ({
-	pokemonData,
-	pokemons,
-	setPokemons
+	pokemonData
 }: PokemonSearchResultProps) => {
+	const teamEditState = useTeamEditState();
+	const [__, setInputQuery] = useSearchState();
+
 	const handleAddPokemon = async () => {
-		setPokemons([...pokemons, pokemonData.nameId]);
+		await teamEditState.addPokemon(pokemonData.nameId);
+		setInputQuery('');
 	};
 
 	return (

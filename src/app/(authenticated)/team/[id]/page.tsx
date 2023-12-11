@@ -7,7 +7,7 @@ import TeamEditButton from '@/components/TeamEditButton';
 import { TeamEditSection } from '@/components/TeamEditSection';
 
 export const metadata: Metadata = {
-	title: 'Create team'
+	title: 'Team edit'
 };
 
 const TeamDetailPage = async ({ params }: { params: { id: string } }) => {
@@ -48,32 +48,35 @@ const TeamDetailPage = async ({ params }: { params: { id: string } }) => {
 	}
 
 	return (
-		<div className="p-4">
-			<div className="flex items-center justify-between">
-				<h1 className="mb-2 text-4xl font-bold text-gray-900">{team.name}</h1>
-				<TeamEditButton team={team} />
+		<div className="grid grid-cols-1 gap-4 p-2 xl:grid-cols-5 xl:gap-8 xl:p-4">
+			<div className="order-last flex flex-col gap-4 xl:order-first xl:col-span-3">
+				<TeamEditSection team={team} />
 			</div>
+			<div className="flex flex-col gap-4 xl:col-span-2">
+				<StaticCard>
+					<div className="flex flex-col gap-2">
+						<div className="flex items-center justify-between">
+							<h1 className="text-4xl font-bold text-emerald-900">
+								{team.name}
+							</h1>
+							<TeamEditButton team={team} />
+						</div>
 
-			{team.description && (
-				<p className="mb-4 text-lg text-gray-700">{team.description}</p>
-			)}
-
-			<div className="flex flex-col p-4 xl:flex-row xl:gap-8">
-				<div className="flex flex-col gap-4 xl:basis-3/5">
-					<TeamEditSection />
-				</div>
-				<div className="flex flex-col gap-4 xl:basis-2/5">
-					<StaticCard>
-						<h1 className="text-2xl font-semibold text-emerald-900">
-							Stats analysis
-						</h1>
-					</StaticCard>
-					<StaticCard>
-						<p>Něco něco, nevim</p>
-						<p>Tabulka, něco</p>
-						<p>Dobrej tým 👍, cg</p>
-					</StaticCard>
-				</div>
+						{team.description && (
+							<p className="text-lg text-gray-700">{team.description}</p>
+						)}
+					</div>
+				</StaticCard>
+				<StaticCard>
+					<h1 className="text-2xl font-semibold text-emerald-900">
+						Stats analysis
+					</h1>
+				</StaticCard>
+				<StaticCard>
+					<p>Něco něco, nevim</p>
+					<p>Tabulka, něco</p>
+					<p>Dobrej tým 👍, cg</p>
+				</StaticCard>
 			</div>
 		</div>
 	);

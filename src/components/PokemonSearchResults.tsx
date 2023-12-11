@@ -1,9 +1,4 @@
-import React, {
-	useState,
-	useEffect,
-	type Dispatch,
-	type SetStateAction
-} from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { type SearchPokemon } from '@/types/search_pokemon';
 
@@ -24,25 +19,31 @@ const getResults = async (query: string) => {
 
 type PokemonSearchResultProps = {
 	query: string;
-	pokemons: string[];
-	setPokemons: Dispatch<SetStateAction<string[]>>;
 };
 
-export const PokemonSearchResults = ({
-	query,
-	pokemons,
-	setPokemons
-}: PokemonSearchResultProps) => {
+export const PokemonSearchResults = ({ query }: PokemonSearchResultProps) => {
 	const [results, setResults] = useState<SearchPokemon[]>([]);
 
 	useEffect(() => {
 		const fetchResults = async () => {
-			const data = await getResults(query);
-			setResults(data);
+			if (query.length > 0) {
+				const data = await getResults(query);
+				setResults(data);
+			}
 		};
 
 		fetchResults();
 	}, [query]);
+
+	if (query.length === 0) {
+		return (
+			<div className="flex flex-row justify-center">
+				<span className="p-2 text-center text-xl font-bold">
+					Start typing to see results...
+				</span>
+			</div>
+		);
+	}
 
 	if (results.length === 0) {
 		return (
@@ -55,11 +56,6 @@ export const PokemonSearchResults = ({
 	}
 
 	return results.map((pokemonData, index) => (
-		<PokemonSearchResult
-			key={index}
-			pokemonData={pokemonData}
-			pokemons={pokemons}
-			setPokemons={setPokemons}
-		/>
+		<PokemonSearchResult key={index} pokemonData={pokemonData} />
 	));
 };

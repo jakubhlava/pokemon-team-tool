@@ -1,15 +1,21 @@
 'use client';
 
 import { PokemonCardWrapper } from '@/components/PokemonCardWrapper';
+import { useTeamEditState } from '@/context/teamEditContext';
 
-type PokemonListProps = {
-	pokemons: string[];
+export const PokemonList = () => {
+	const teamEditState = useTeamEditState();
+	const [pokemons, _] = teamEditState.state;
+
+	return (
+		<div className="grid grid-cols-1 gap-4 2xl:grid-cols-2">
+			{pokemons.map(pokemon => (
+				<PokemonCardWrapper
+					teamPokemonId={pokemon.id}
+					pokemonName={pokemon.pokemon.nameId}
+					key={pokemon.pokemonId}
+				/>
+			))}
+		</div>
+	);
 };
-
-export const PokemonList = ({ pokemons }: PokemonListProps) => (
-	<div className="grid grid-cols-1 gap-4 2xl:grid-cols-2">
-		{pokemons.map(pokemonId => (
-			<PokemonCardWrapper key={pokemonId} />
-		))}
-	</div>
-);

@@ -135,7 +135,15 @@ const TeamFormModal = ({ isOpen, onClose, team }: TeamFormModalProps) => {
 						<Spinner />
 					) : (
 						<button className="btn btn-primary rounded-2xl">
-							<i className="bi bi-plus" /> Create team
+							{team ? (
+								<>
+									<i className="bi bi-plus" /> Save team
+								</>
+							) : (
+								<>
+									<i className="bi bi-plus" /> Create team
+								</>
+							)}
 						</button>
 					)}
 					<button

@@ -17,7 +17,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
 	<html
 		lang="en"
 		data-theme="emerald"
-		className="m-0 h-screen w-screen bg-gradient-to-b from-emerald-600 to-green-300"
+		className="min-w-screen m-0 min-h-screen bg-gradient-to-b from-emerald-600 to-green-300"
 	>
 		<body className={inter.className}>
 			<Providers>{children}</Providers>
