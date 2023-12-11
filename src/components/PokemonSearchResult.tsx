@@ -1,10 +1,5 @@
-import { useMutation } from '@tanstack/react-query';
-import { type Pokemon, type TeamPokemon } from '@prisma/client';
-import { useRouter } from 'next/navigation';
-
 import { type SearchPokemon } from '@/types/search_pokemon';
 import { useTeamEditState } from '@/context/teamEditContext';
-import { teamPokemonSchema } from '@/validators/team';
 import { useSearchState } from '@/context/searchContext';
 
 import PokemonTypeBadge from './PokemonTypeBadge';

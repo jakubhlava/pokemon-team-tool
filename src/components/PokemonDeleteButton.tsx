@@ -6,7 +6,6 @@ import { ConfirmDialog } from '@/components/ConfirmDialog';
 import { ToastSuccess } from '@/toasts/Success';
 import { ToastError } from '@/toasts/Error';
 import { ToastWarning } from '@/toasts/Warning';
-import { useTeam } from '@/context/teamContext';
 import { useTeamEditState } from '@/context/teamEditContext';
 
 const errorHandle = (e: Error) => {
