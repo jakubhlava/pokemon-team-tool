@@ -23,7 +23,8 @@ export const GET = async (req: Request) => {
 		const teams = await db.pokemon.findMany({
 			where: {
 				name: {
-					contains: searchQuery
+					contains: searchQuery,
+					mode: 'insensitive'
 				}
 			}
 		});
