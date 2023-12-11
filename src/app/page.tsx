@@ -11,13 +11,15 @@ const Home = () => (
 					alt="Pikachu"
 					width={384}
 					height={384}
-					className="absolute bottom-16 left-0"
+					className="absolute bottom-12 left-0 sm:bottom-16"
 					priority
 				/>
-				<span className="text-4xl font-extrabold">Pokémon Team Tool</span>
+				<span className="text-2xl font-extrabold sm:text-4xl">
+					Pokémon Team Tool
+				</span>
 			</div>
 		</div>
-		<div className="flex flex-col gap-4 rounded-xl bg-white/60 p-6 text-center shadow-xl backdrop-blur">
+		<div className="flex flex-col gap-4 rounded-xl bg-white/60 p-6 shadow-xl backdrop-blur">
 			<span className="flex gap-4 text-lg font-semibold">
 				<i className="bi bi-graph-up-arrow" /> Build your dream team and see
 				your stats!
