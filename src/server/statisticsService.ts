@@ -78,7 +78,7 @@ const getMoveTypes = async (moves: string[]) =>
 	(
 		await Promise.all(
 			moves.map(async moveString => {
-				const move = await PokemonApi.move.getMoveById(Number(moveString));
+				const move = await PokemonApi.move.getMoveByName(moveString);
 
 				return move.type.name;
 			})

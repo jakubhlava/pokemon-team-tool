@@ -1,7 +1,8 @@
 'use client';
 
-import { memo, type PropsWithChildren, useEffect, useState } from 'react';
+import { type PropsWithChildren, useEffect, useState } from 'react';
 import { type Move } from 'pokenode-ts';
+import { useQueryClient } from '@tanstack/react-query';
 
 import PokemonTypeBadge from '@/components/PokemonTypeBadge';
 
@@ -22,6 +23,8 @@ export const AttackSelect = ({
 	const [selectedMove, setSelectedMove] = useState<Move | null>(null);
 	const [open, setOpen] = useState(false);
 
+	const queryClient = useQueryClient();
+
 	const setMove = async (move: Move) => {
 		setSelectedMove(move);
 		const data: { [key: string]: string } = {};
@@ -34,6 +37,10 @@ export const AttackSelect = ({
 			body: JSON.stringify(data)
 		});
 		setOpen(false);
+
+		await queryClient.invalidateQueries({
+			queryKey: ['team-statistics', teamPokemonId]
+		});
 	};
 
 	useEffect(() => {
