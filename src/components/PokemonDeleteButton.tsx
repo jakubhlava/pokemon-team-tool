@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { ConfirmDialog } from '@/components/ConfirmDialog';
 import { ToastSuccess } from '@/toasts/Success';
@@ -35,6 +35,8 @@ export const PokemonDeleteButton = ({
 
 	const router = useRouter();
 
+	const queryClient = useQueryClient();
+
 	const mutation = useMutation({
 		mutationFn: async (teamPokemonId: string) => {
 			const res = await fetch(`/api/team/pokemon/${teamPokemonId}`, {
@@ -45,12 +47,15 @@ export const PokemonDeleteButton = ({
 				throw new Error(`${res.status} ${res.statusText}`);
 			}
 		},
-		onSuccess: () => {
+		onSuccess: async () => {
 			ToastSuccess.fire({
 				title: 'Pokemon deleted',
 				icon: 'success'
 			});
 			setPokemons(pokemons => pokemons.filter(p => p.id !== teamPokemonId));
+			await queryClient.invalidateQueries({
+				queryKey: ['team-statistics', teamPokemonId]
+			});
 		},
 		onError: (e: Error) => {
 			closeDialog();
