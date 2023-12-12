@@ -50,8 +50,6 @@ const TeamFormModal = ({ isOpen, onClose, team }: TeamFormModalProps) => {
 		? { name: team.name, description: team.description }
 		: { name: '', description: '' };
 
-	console.log(defaultValues);
-
 	const { register, handleSubmit, formState, reset } = useForm<TeamFormValues>({
 		resolver: zodResolver(teamForm),
 		defaultValues

@@ -5,6 +5,7 @@ import { StaticCard } from '@/components/StaticCard';
 import { db } from '@/server/db';
 import TeamEditButton from '@/components/TeamEditButton';
 import { TeamEditSection } from '@/components/TeamEditSection';
+import { TeamStatistics } from '@/components/TeamStatistics';
 
 export const metadata: Metadata = {
 	title: 'Team edit'
@@ -67,16 +68,7 @@ const TeamDetailPage = async ({ params }: { params: { id: string } }) => {
 						)}
 					</div>
 				</StaticCard>
-				<StaticCard>
-					<h1 className="text-2xl font-semibold text-emerald-900">
-						Stats analysis
-					</h1>
-				</StaticCard>
-				<StaticCard>
-					<p>Něco něco, nevim</p>
-					<p>Tabulka, něco</p>
-					<p>Dobrej tým 👍, cg</p>
-				</StaticCard>
+				<TeamStatistics teamId={team.id} />
 			</div>
 		</div>
 	);

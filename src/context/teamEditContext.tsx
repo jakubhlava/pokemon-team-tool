@@ -1,3 +1,5 @@
+'use client';
+
 import {
 	createContext,
 	type Dispatch,
@@ -7,7 +9,7 @@ import {
 	useEffect,
 	useState
 } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { type Pokemon, type TeamPokemon } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 
@@ -37,6 +39,8 @@ export const TeamEditProvider = ({ team, children }: TeamEditProviderProps) => {
 	const [_, setPokemons] = teamState;
 	const router = useRouter();
 
+	const queryClient = useQueryClient();
+
 	useEffect(() => {
 		setPokemons(team.TeamPokemon);
 	});
@@ -56,6 +60,11 @@ export const TeamEditProvider = ({ team, children }: TeamEditProviderProps) => {
 		},
 		onSuccess: async (teamPokemon: TeamPokemon & { pokemon: Pokemon }) => {
 			setPokemons(pokemons => [...pokemons, teamPokemon]);
+
+			await queryClient.invalidateQueries({
+				queryKey: ['team-statistics', teamPokemon.teamId]
+			});
+
 			router.refresh();
 		}
 	});

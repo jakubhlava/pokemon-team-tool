@@ -1,5 +1,6 @@
 import { type Pokemon } from 'pokenode-ts';
 import { type TeamPokemon } from '@prisma/client';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { AttackSelect } from '@/components/AttackSelect';
 import { PokemonApi } from '@/pokemon/pokeapi';
