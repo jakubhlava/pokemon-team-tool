@@ -26,6 +26,7 @@ type TeamEditState = {
 		Dispatch<SetStateAction<TeamPokemonWithPokemon[]>>
 	];
 	addPokemon: (pokemonNameId: string) => Promise<void>;
+	getPokemonCount: () => Promise<number>;
 };
 
 const TeamEditContext = createContext<TeamEditState>(undefined as never);
@@ -47,6 +48,11 @@ export const TeamEditProvider = ({ team, children }: TeamEditProviderProps) => {
 
 	const addPokemon = async (pokemonNameId: string) => {
 		await mutation.mutateAsync(pokemonNameId);
+	};
+
+	const getPokemonCount = async () => {
+		const res = await fetch(`/api/team/${team.id}`);
+		return await res.json().then(data => data.TeamPokemon.length);
 	};
 
 	const mutation = useMutation({
@@ -72,7 +78,8 @@ export const TeamEditProvider = ({ team, children }: TeamEditProviderProps) => {
 	const state = {
 		team,
 		state: teamState,
-		addPokemon
+		addPokemon,
+		getPokemonCount
 	};
 
 	return (
