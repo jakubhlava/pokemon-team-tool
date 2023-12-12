@@ -16,6 +16,6 @@ export const TeamEditSection = ({ team }: TeamEditSectionProps) => (
 		<SearchContextProvider>
 			<PokemonSearch />
 		</SearchContextProvider>
-		<PokemonList />
+		<PokemonList team={team} />
 	</TeamEditProvider>
 );

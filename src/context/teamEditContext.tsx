@@ -15,7 +15,7 @@ import {
 	type TeamPokemonWithPokemon,
 	type TeamWithPokemons
 } from '@/types/team';
-import { teamPokemonSchema } from '@/validators/team';
+import { teamPokemonWithPokemonSchema } from '@/validators/team';
 
 type TeamEditState = {
 	team: TeamWithPokemons;
@@ -52,7 +52,7 @@ export const TeamEditProvider = ({ team, children }: TeamEditProviderProps) => {
 				body: JSON.stringify({ pokemonName })
 			});
 
-			return await teamPokemonSchema.parseAsync(await res.json());
+			return await teamPokemonWithPokemonSchema.parseAsync(await res.json());
 		},
 		onSuccess: async (teamPokemon: TeamPokemon & { pokemon: Pokemon }) => {
 			setPokemons(pokemons => [...pokemons, teamPokemon]);
