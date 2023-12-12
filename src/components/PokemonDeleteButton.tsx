@@ -52,10 +52,10 @@ export const PokemonDeleteButton = ({
 				title: 'Pokemon deleted',
 				icon: 'success'
 			});
-			setPokemons(pokemons => pokemons.filter(p => p.id !== teamPokemonId));
 			await queryClient.invalidateQueries({
-				queryKey: ['team-statistics', teamPokemonId]
+				queryKey: ['team-statistics']
 			});
+			setPokemons(pokemons => pokemons.filter(p => p.id !== teamPokemonId));
 		},
 		onError: (e: Error) => {
 			closeDialog();
