@@ -10,7 +10,7 @@ import {
 
 const useTeamStatistics = (id: string) =>
 	useQuery<StatisticEntry[]>({
-		queryKey: ['team-statistics', id],
+		queryKey: ['team-statistics'],
 		queryFn: async () => {
 			const res = await fetch(`/api/team/${id}/statistics`);
 			return StatisticEntryArraySchema.parseAsync(await res.json());

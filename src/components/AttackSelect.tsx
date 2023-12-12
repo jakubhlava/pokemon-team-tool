@@ -36,11 +36,10 @@ export const AttackSelect = ({
 			},
 			body: JSON.stringify(data)
 		});
-		setOpen(false);
-
 		await queryClient.invalidateQueries({
-			queryKey: ['team-statistics', teamPokemonId]
+			queryKey: ['team-statistics']
 		});
+		setOpen(false);
 	};
 
 	useEffect(() => {
@@ -110,8 +109,10 @@ export const AttackSelect = ({
 									className="flex h-full w-full justify-between rounded-xl p-0.5 text-emerald-900 transition-all duration-150 hover:bg-emerald-100"
 									onClick={() => setMove(attack)}
 								>
-									{attack.names.find(name => name.language.name === 'en')
-										?.name ?? attack.name}
+									<span className="text-start">
+										{attack.names.find(name => name.language.name === 'en')
+											?.name ?? attack.name}
+									</span>
 									<PokemonTypeBadge type={attack.type.name} />
 								</button>
 							</li>

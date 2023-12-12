@@ -62,7 +62,7 @@ export const TeamEditProvider = ({ team, children }: TeamEditProviderProps) => {
 			setPokemons(pokemons => [...pokemons, teamPokemon]);
 
 			await queryClient.invalidateQueries({
-				queryKey: ['team-statistics', teamPokemon.teamId]
+				queryKey: ['team-statistics']
 			});
 
 			router.refresh();
