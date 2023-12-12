@@ -7,6 +7,7 @@ import { ToastSuccess } from '@/toasts/Success';
 import { ToastError } from '@/toasts/Error';
 import { ToastWarning } from '@/toasts/Warning';
 import { useTeamEditState } from '@/context/teamEditContext';
+import { useDisabledSearchState } from '@/context/disabledSearchContext';
 
 const errorHandle = (e: Error) => {
 	if (e.message.startsWith('4')) {
@@ -31,7 +32,9 @@ export const PokemonDeleteButton = ({
 	teamPokemonId
 }: PokemonDeleteButtonProps) => {
 	const dialogRef = useRef<HTMLDialogElement>(null);
-	const [_, setPokemons] = useTeamEditState().state;
+	const teamEditState = useTeamEditState();
+	const [_, setPokemons] = teamEditState.state;
+	const [__, setDisabledSearch] = useDisabledSearchState();
 
 	const router = useRouter();
 
@@ -56,6 +59,10 @@ export const PokemonDeleteButton = ({
 				queryKey: ['team-statistics']
 			});
 			setPokemons(pokemons => pokemons.filter(p => p.id !== teamPokemonId));
+			const count = await teamEditState.getPokemonCount();
+			if (count < 6) {
+				setDisabledSearch(false);
+			}
 		},
 		onError: (e: Error) => {
 			closeDialog();

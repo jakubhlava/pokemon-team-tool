@@ -1,6 +1,7 @@
 import { type SearchPokemon } from '@/types/search_pokemon';
 import { useTeamEditState } from '@/context/teamEditContext';
 import { useSearchState } from '@/context/searchContext';
+import { useDisabledSearchState } from '@/context/disabledSearchContext';
 
 import PokemonTypeBadge from './PokemonTypeBadge';
 
@@ -13,9 +14,14 @@ export const PokemonSearchResult = ({
 }: PokemonSearchResultProps) => {
 	const teamEditState = useTeamEditState();
 	const [__, setInputQuery] = useSearchState();
+	const [_, setDisabledSearch] = useDisabledSearchState();
 
 	const handleAddPokemon = async () => {
 		await teamEditState.addPokemon(pokemonData.nameId);
+		const count = await teamEditState.getPokemonCount();
+		if (count === 6) {
+			setDisabledSearch(true);
+		}
 		setInputQuery('');
 	};
 
