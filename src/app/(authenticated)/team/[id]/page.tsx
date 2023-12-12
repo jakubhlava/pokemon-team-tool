@@ -1,17 +1,25 @@
 import { type Metadata } from 'next';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 import { StaticCard } from '@/components/StaticCard';
 import { db } from '@/server/db';
 import TeamEditButton from '@/components/TeamEditButton';
 import { TeamEditSection } from '@/components/TeamEditSection';
 import { TeamStatistics } from '@/components/TeamStatistics';
+import { getServerAuthSession } from '@/server/auth';
 
 export const metadata: Metadata = {
 	title: 'Team edit'
 };
 
 const TeamDetailPage = async ({ params }: { params: { id: string } }) => {
+	const status = await getServerAuthSession();
+
+	if (!status) {
+		redirect('/');
+	}
+
 	const { id } = params;
 	const team = await db.team.findUnique({
 		where: {
