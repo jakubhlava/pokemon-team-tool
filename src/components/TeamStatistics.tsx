@@ -46,7 +46,7 @@ export const TeamStatistics = ({ teamId }: TeamStatisticsProps) => {
 				Stats analysis
 			</h2>
 			{data?.map(stat => (
-				<p className="text-l font-semibold text-emerald-900">
+				<p key={stat.message} className="text-l font-semibold text-emerald-900">
 					{stat.type === 'warning' ? (
 						<i className="bi bi-exclamation-triangle-fill" />
 					) : (
