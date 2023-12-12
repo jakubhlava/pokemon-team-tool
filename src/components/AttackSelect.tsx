@@ -1,26 +1,38 @@
-import { type PropsWithChildren, useEffect, useState } from 'react';
+'use client';
+
+import { memo, type PropsWithChildren, useEffect, useState } from 'react';
 import { type Move } from 'pokenode-ts';
 
 import PokemonTypeBadge from '@/components/PokemonTypeBadge';
 
 type AttackSelectProps = {
 	attacks: Move[];
-	onChange: (move: Move) => void;
-	presetMove?: Move;
+	presetMove?: Move | null;
+	teamPokemonId: string;
+	teamPokemonOrder: 'moveOne' | 'moveTwo' | 'moveThree' | 'moveFour';
 } & PropsWithChildren;
 
 export const AttackSelect = ({
 	children,
 	attacks,
-	onChange,
+	teamPokemonId,
+	teamPokemonOrder,
 	presetMove
 }: AttackSelectProps) => {
 	const [selectedMove, setSelectedMove] = useState<Move | null>(null);
 	const [open, setOpen] = useState(false);
 
-	const setMove = (move: Move) => {
+	const setMove = async (move: Move) => {
 		setSelectedMove(move);
-		onChange(move);
+		const data: { [key: string]: string } = {};
+		data[`${teamPokemonOrder}Id`] = move.name;
+		await fetch(`/api/team/pokemon/${teamPokemonId}/`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(data)
+		});
 		setOpen(false);
 	};
 
@@ -47,7 +59,7 @@ export const AttackSelect = ({
 	}, [presetMove]);
 
 	return (
-		<div className="relative">
+		<div className="relative focus:z-50">
 			<button
 				onClick={() => setOpen(!open)}
 				className={`flex h-10 w-full items-center justify-between rounded-lg border border-emerald-900  px-4 py-1 transition-all duration-150  ${

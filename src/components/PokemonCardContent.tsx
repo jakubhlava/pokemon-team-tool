@@ -4,17 +4,16 @@ import { PokemonApi } from '@/pokemon/pokeapi';
 import PokemonTypeBadge from '@/components/PokemonTypeBadge';
 import { PokemonAttackSelection } from '@/components/PokemonAttackSelection';
 import { PokemonDeleteButton } from '@/components/PokemonDeleteButton';
+import { type TeamPokemonWithPokemon } from '@/types/team';
 
 export type PokemonCardProps = {
-	teamPokemonId: string;
-	pokemonName: string;
+	teamPokemon: TeamPokemonWithPokemon;
 };
 
-export const PokemonCardContent = async ({
-	teamPokemonId,
-	pokemonName
-}: PokemonCardProps) => {
-	const pokemon = await PokemonApi.pokemon.getPokemonByName(pokemonName ?? '');
+export const PokemonCardContent = async ({ teamPokemon }: PokemonCardProps) => {
+	const pokemon = await PokemonApi.pokemon.getPokemonByName(
+		teamPokemon.pokemon.nameId ?? ''
+	);
 
 	const specie = await PokemonApi.pokemon.getPokemonSpeciesByName(
 		pokemon.species?.name
@@ -38,7 +37,7 @@ export const PokemonCardContent = async ({
 						))}
 					</div>
 				</div>
-				<PokemonDeleteButton teamPokemonId={teamPokemonId} />
+				<PokemonDeleteButton teamPokemonId={teamPokemon.id} />
 			</div>
 			<Suspense
 				fallback={
@@ -47,10 +46,7 @@ export const PokemonCardContent = async ({
 					</div>
 				}
 			>
-				<PokemonAttackSelection
-					pokemon={pokemon}
-					teamPokemonId={teamPokemonId}
-				/>
+				<PokemonAttackSelection pokemon={pokemon} teamPokemon={teamPokemon} />
 			</Suspense>
 		</div>
 	);

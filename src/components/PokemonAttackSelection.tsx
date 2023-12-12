@@ -1,16 +1,17 @@
-import { type Move, type Pokemon } from 'pokenode-ts';
+import { type Pokemon } from 'pokenode-ts';
+import { type TeamPokemon } from '@prisma/client';
 
 import { AttackSelect } from '@/components/AttackSelect';
 import { PokemonApi } from '@/pokemon/pokeapi';
 
 type PokemonAttackSelectionProps = {
 	pokemon: Pokemon;
-	teamPokemonId: string;
+	teamPokemon: TeamPokemon;
 };
 
 export const PokemonAttackSelection = async ({
 	pokemon,
-	teamPokemonId
+	teamPokemon
 }: PokemonAttackSelectionProps) => {
 	const moves = await Promise.all(
 		pokemon.moves.map(
@@ -18,102 +19,42 @@ export const PokemonAttackSelection = async ({
 		)
 	);
 
-	const onMoveOneChange = async (move: Move) => {
-		await fetch(`/api/team/pokemon/${teamPokemonId}/`, {
-			method: 'PATCH',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				moveOneId: move.id
-			})
-		});
+	const getMove = (moveId: string | null | undefined) => {
+		if (!moveId) return null;
+		return moves.find(move => move.name === moveId);
 	};
-
-	const onMoveTwoChange = async (move: Move) => {
-		await fetch(`/api/team/pokemon/${teamPokemonId}/`, {
-			method: 'PATCH',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				moveTwoId: move.id
-			})
-		});
-	};
-
-	const onMoveThreeChange = async (move: Move) => {
-		await fetch(`/api/team/pokemon/${teamPokemonId}/`, {
-			method: 'PATCH',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				moveThreeId: move.id
-			})
-		});
-	};
-
-	const onMoveFourChange = async (move: Move) => {
-		await fetch(`/api/team/pokemon/${teamPokemonId}/`, {
-			method: 'PATCH',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				moveFourId: move.id
-			})
-		});
-	};
-
-	const response = await fetch(`/api/team/pokemon/${teamPokemonId}`, {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	});
-
-	const fetchedPokemon = await response.json();
 
 	return (
 		<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
 			<AttackSelect
-				onChange={onMoveOneChange}
 				attacks={moves}
-				presetMove={
-					fetchedPokemon.moveOneId &&
-					(await PokemonApi.move.getMoveById(fetchedPokemon.moveOneId))
-				}
+				presetMove={getMove(teamPokemon.moveOneId)}
+				teamPokemonId={teamPokemon.id}
+				teamPokemonOrder="moveOne"
 			>
 				Select attack 1
 			</AttackSelect>
 			<AttackSelect
-				onChange={onMoveTwoChange}
 				attacks={moves}
-				presetMove={
-					fetchedPokemon.moveTwoId &&
-					(await PokemonApi.move.getMoveById(fetchedPokemon.moveTwoId))
-				}
+				presetMove={getMove(teamPokemon?.moveTwoId)}
+				teamPokemonId={teamPokemon.id}
+				teamPokemonOrder="moveTwo"
 			>
 				Select attack 2
 			</AttackSelect>
 			<AttackSelect
-				onChange={onMoveThreeChange}
 				attacks={moves}
-				presetMove={
-					fetchedPokemon.moveThreeId &&
-					(await PokemonApi.move.getMoveById(fetchedPokemon.moveThreeId))
-				}
+				presetMove={getMove(teamPokemon?.moveThreeId)}
+				teamPokemonId={teamPokemon.id}
+				teamPokemonOrder="moveThree"
 			>
 				Select attack 3
 			</AttackSelect>
 			<AttackSelect
-				onChange={onMoveFourChange}
 				attacks={moves}
-				presetMove={
-					fetchedPokemon.moveFourId &&
-					(await PokemonApi.move.getMoveById(fetchedPokemon.moveFourId))
-				}
+				presetMove={getMove(teamPokemon?.moveFourId)}
+				teamPokemonId={teamPokemon.id}
+				teamPokemonOrder="moveFour"
 			>
 				Select attack 4
 			</AttackSelect>
