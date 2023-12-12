@@ -5,6 +5,7 @@ import { StaticCard } from '@/components/StaticCard';
 import { db } from '@/server/db';
 import TeamEditButton from '@/components/TeamEditButton';
 import { TeamEditSection } from '@/components/TeamEditSection';
+import { TeamStatistics } from '@/components/TeamStatistics';
 
 export const metadata: Metadata = {
 	title: 'Team edit'
@@ -49,7 +50,26 @@ const TeamDetailPage = async ({ params }: { params: { id: string } }) => {
 
 	return (
 		<div className="grid grid-cols-1 gap-4 p-2 xl:grid-cols-5 xl:gap-8 xl:p-4">
-			<TeamEditSection team={team} />
+			<div className="order-last flex flex-col gap-4 xl:order-first xl:col-span-3">
+				<TeamEditSection team={team} />
+			</div>
+			<div className="flex flex-col gap-4 xl:col-span-2">
+				<StaticCard>
+					<div className="flex flex-col gap-2">
+						<div className="flex items-center justify-between">
+							<h1 className="text-4xl font-bold text-emerald-900">
+								{team.name}
+							</h1>
+							<TeamEditButton team={team} />
+						</div>
+
+						{team.description && (
+							<p className="text-lg text-gray-700">{team.description}</p>
+						)}
+					</div>
+				</StaticCard>
+				<TeamStatistics teamId={team.id} />
+			</div>
 		</div>
 	);
 };

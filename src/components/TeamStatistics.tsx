@@ -1,22 +1,28 @@
+'use client';
 import { useQuery } from '@tanstack/react-query';
 
-import { useTeamEditState } from '@/context/teamEditContext';
 import { StaticCard } from '@/components/StaticCard';
 import { Spinner } from '@/components/spinner';
+import {
+	type StatisticEntry,
+	StatisticEntryArraySchema
+} from '@/server/statisticsService';
 
 const useTeamStatistics = (id: string) =>
-	useQuery({
+	useQuery<StatisticEntry[]>({
 		queryKey: ['team-statistics', id],
 		queryFn: async () => {
 			const res = await fetch(`/api/team/${id}/statistics`);
-			return res.json();
+			return StatisticEntryArraySchema.parseAsync(await res.json());
 		}
 	});
 
-export const TeamStatistics = () => {
-	const teamEditState = useTeamEditState();
+type TeamStatisticsProps = {
+	teamId: string;
+};
 
-	const { data, isLoading, isError } = useTeamStatistics(teamEditState.team.id);
+export const TeamStatistics = ({ teamId }: TeamStatisticsProps) => {
+	const { data, isLoading, isError } = useTeamStatistics(teamId);
 
 	if (isError) {
 		return (
@@ -35,15 +41,20 @@ export const TeamStatistics = () => {
 	}
 
 	return (
-		<>
-			<StaticCard>
-				<h1 className="text-2xl font-semibold text-emerald-900">
-					Stats analysis
-				</h1>
-			</StaticCard>
-			<StaticCard>
-				<p>juch</p>
-			</StaticCard>
-		</>
+		<StaticCard>
+			<h2 className="text-2xl font-semibold text-emerald-900">
+				Stats analysis
+			</h2>
+			{data?.map(stat => (
+				<p className="text-l font-semibold text-emerald-900">
+					{stat.type === 'warning' ? (
+						<i className="bi bi-exclamation-triangle-fill" />
+					) : (
+						<i className="bi bi-check-circle-fill" />
+					)}{' '}
+					{stat.message}
+				</p>
+			))}
+		</StaticCard>
 	);
 };

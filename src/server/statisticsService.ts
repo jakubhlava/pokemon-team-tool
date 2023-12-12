@@ -1,12 +1,17 @@
 import { type TeamPokemon } from '.prisma/client';
+import { z } from 'zod';
 
 import { PokemonApi } from '@/pokemon/pokeapi';
 import { effectiveness, types } from '@/server/effectivenesMatrix';
 
-type StatisticEntry = {
-	type: 'warning' | 'info';
-	message: string;
-};
+export const StatisticEntrySchema = z.object({
+	type: z.union([z.literal('warning'), z.literal('info')]),
+	message: z.string()
+});
+
+export const StatisticEntryArraySchema = z.array(StatisticEntrySchema);
+
+export type StatisticEntry = z.infer<typeof StatisticEntrySchema>;
 
 export const computeStatistics = async (pokemons: TeamPokemon[]) => {
 	const statistics: StatisticEntry[] = [];
@@ -73,7 +78,7 @@ const getMoveTypes = async (moves: string[]) =>
 	(
 		await Promise.all(
 			moves.map(async moveString => {
-				const move = await PokemonApi.move.getMoveByName(moveString);
+				const move = await PokemonApi.move.getMoveById(Number(moveString));
 
 				return move.type.name;
 			})
